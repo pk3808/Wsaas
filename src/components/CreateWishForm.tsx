@@ -143,7 +143,7 @@ export function CreateWishForm() {
             Craft a <span className="font-[family-name:var(--font-cursive)] text-coral text-4xl sm:text-5xl font-bold px-1">Heartfelt Page</span>
           </h2>
           <p className="font-[family-name:var(--font-marker)] text-base sm:text-lg text-soft-brown mt-1">
-            <span className="bg-[#FDE8DF] px-2 py-0.5 rounded-[3px]">
+            <span className="bg-[#FFF3ED] px-2 py-0.5 rounded-[3px]">
               Fill in the sweet memories below — your live interactive link generates instantly!
             </span>
           </p>
@@ -183,7 +183,7 @@ export function CreateWishForm() {
                   onClick={() => handleOccasionChange(occ.id as OccasionType)}
                   className={`p-3.5 rounded-2xl text-left transition-all flex flex-col gap-2 relative cursor-pointer ${
                     isSelected
-                      ? "bg-[#FDE8DF] border-2 border-coral text-ink shadow-sm scale-[1.02]"
+                      ? "bg-[#FFF3ED] border-2 border-coral text-ink shadow-sm scale-[1.02]"
                       : "bg-cream/70 border border-warm-gray/15 text-soft-brown hover:bg-cream hover:text-ink hover:border-warm-gray/30"
                   }`}
                 >

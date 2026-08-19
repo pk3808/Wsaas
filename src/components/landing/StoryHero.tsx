@@ -226,7 +226,7 @@ export function StoryHero() {
 
           {/* Highlighted text */}
           <p className="font-[family-name:var(--font-marker)] text-lg sm:text-xl max-w-3xl mx-auto text-center leading-[1.7] tracking-wide">
-            <span className="bg-[#FDE8DF] text-ink px-2.5 py-0.5 rounded-[4px] [box-decoration-break:clone] [-webkit-box-decoration-break:clone] shadow-2xs">
+            <span className="bg-[#FFF3ED] text-ink px-2.5 py-0.5 rounded-[4px] [box-decoration-break:clone] [-webkit-box-decoration-break:clone] shadow-2xs">
               Turn ordinary birthday greetings, anniversary wishes & thank you notes into interactive digital keepsake pages — complete with animations, confetti, and a live guestbook.
             </span>
           </p>
@@ -235,7 +235,7 @@ export function StoryHero() {
           <div className="flex items-center justify-center gap-2 pt-1 pb-2">
             <DoodleHeart className="w-5 h-5 text-coral fill-coral/20 animate-pulse shrink-0" />
             <div className="relative inline-block">
-              <span className="bg-[#FDE8DF] text-ink px-3.5 py-1 rounded-[4px] shadow-2xs font-[family-name:var(--font-cursive)] text-xl sm:text-2xl md:text-3xl font-bold tracking-wide inline-block">
+              <span className="bg-[#FFF3ED] text-ink px-3.5 py-1 rounded-[4px] shadow-2xs font-[family-name:var(--font-cursive)] text-xl sm:text-2xl md:text-3xl font-bold tracking-wide inline-block">
                 ...because a text message gets lost in chat history
               </span>
               {/* Artistic wavy line at bottom of highlight */}
