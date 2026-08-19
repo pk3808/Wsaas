@@ -1,26 +1,89 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-body), system-ui, -apple-system, sans-serif;
+  --font-handwritten: var(--font-handwritten), "Caveat", cursive;
+
+  --color-cream: #FFF9F0;
+  --color-paper: #FFFDF7;
+  --color-warm-gray: #6B6155;
+  --color-soft-brown: #8B7E6A;
+  --color-ink: #3D3428;
+  --color-coral: #E8856C;
+  --color-lavender: #B4A0D1;
+  --color-sage: #8DAE93;
+  --color-sky: #7FBCD2;
+  --color-peach: #F5C6A8;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Paper dot grid pattern */
+.bg-dotgrid {
+  background-image: radial-gradient(circle, #d5cfc5 0.8px, transparent 0.8px);
+  background-size: 20px 20px;
+}
+
+/* Ruled notebook line pattern */
+.bg-ruled {
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    #e8e0d4 31px,
+    #e8e0d4 32px
+  );
+}
+
+/* Soft paper shadow for layered card feel */
+.paper-shadow {
+  box-shadow:
+    0 1px 3px rgba(61, 52, 40, 0.06),
+    0 4px 12px rgba(61, 52, 40, 0.04),
+    0 8px 24px rgba(61, 52, 40, 0.03);
+}
+
+.paper-shadow-lg {
+  box-shadow:
+    0 2px 8px rgba(61, 52, 40, 0.07),
+    0 8px 24px rgba(61, 52, 40, 0.06),
+    0 16px 48px rgba(61, 52, 40, 0.04);
+}
+
+/* Washi tape decorative strip */
+.washi-tape {
+  background-color: rgba(245, 198, 168, 0.55);
+  backdrop-filter: blur(1px);
+  border: 1px solid rgba(245, 198, 168, 0.3);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: #d5cfc5;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b8b0a4;
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(232, 133, 108, 0.25);
+  color: var(--color-ink);
 }

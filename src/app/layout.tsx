@@ -1,12 +1,23 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { DM_Sans, Caveat } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-body",
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-handwritten",
+  weight: ["400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
-  title: "WishMaker - Create Digital Wish Pages",
-  description: "Create beautiful, personalized web pages for birthdays, anniversaries, and special moments.",
+  title: "WishCraft — Create Beautiful Digital Wishing Pages",
+  description:
+    "Turn birthdays, anniversaries, graduations & holidays into unforgettable, interactive digital keepsake pages your loved ones will treasure forever.",
 };
 
 export default function RootLayout({
@@ -16,7 +27,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${dmSans.variable} ${caveat.variable} font-sans`}>
+        {children}
+      </body>
     </html>
   );
 }
