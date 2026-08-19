@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Caveat } from "next/font/google";
+import { DM_Sans, Caveat, Playfair_Display, Dancing_Script, Patrick_Hand } from "next/font/google";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -12,6 +12,25 @@ const caveat = Caveat({
   subsets: ["latin"],
   variable: "--font-handwritten",
   weight: ["400", "500", "600", "700"],
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  weight: ["400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
+});
+
+const dancingScript = Dancing_Script({
+  subsets: ["latin"],
+  variable: "--font-cursive",
+  weight: ["400", "500", "600", "700"],
+});
+
+const patrickHand = Patrick_Hand({
+  subsets: ["latin"],
+  variable: "--font-marker",
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +46,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${dmSans.variable} ${caveat.variable} font-sans`}>
+      <body className={`${dmSans.variable} ${caveat.variable} ${playfair.variable} ${dancingScript.variable} ${patrickHand.variable} font-sans`}>
         {children}
       </body>
     </html>
