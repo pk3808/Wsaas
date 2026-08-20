@@ -1,6 +1,8 @@
-"use client";
+const fs = require('fs');
 
-import { useState, useEffect, useRef } from "react";
+const code = `"use client";
+
+import { useState, useEffect } from "react";
 import { type WishData } from "@/lib/config";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import confetti from "canvas-confetti";
@@ -12,7 +14,7 @@ interface TemplateProps {
 }
 
 // Helper to safely parse JSON strings from URL
-function safeParse(jsonString: string | undefined, fallback: unknown) {
+function safeParse(jsonString: string | undefined, fallback: any) {
   if (!jsonString) return fallback;
   try {
     return JSON.parse(jsonString);
@@ -31,7 +33,7 @@ const triggerConfetti = (level: "small" | "medium" | "huge", x = 0.5, y = 0.5) =
     const animationEnd = Date.now() + duration;
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
 
-    const interval = setInterval(function() {
+    const interval: any = setInterval(function() {
       const timeLeft = animationEnd - Date.now();
 
       if (timeLeft <= 0) {
@@ -93,40 +95,6 @@ const Cursor = () => {
   );
 };
 
-const FloatingBalloon = ({ id, msg, delay, colorClass, isPopped, onPop, shouldReduceMotion }: { id: number, msg: string, delay: number, colorClass: string, isPopped: boolean, onPop: (id: number, rect: DOMRect) => void, shouldReduceMotion: boolean | null }) => {
-
-
-    if (isPopped) {
-      return (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-          className="absolute z-20 bg-white/90 text-slate-800 p-3 rounded-xl shadow-xl text-sm font-medium border border-indigo-100 max-w-[150px] text-center"
-        >
-          {msg}
-        </motion.div>
-      );
-    }
-
-    return (
-      <motion.button
-        animate={shouldReduceMotion ? {} : { y: [0, -15, 0], x: [0, 5, -5, 0] }}
-        transition={{ repeat: Infinity, duration: 4 + delay, ease: "easeInOut" }}
-        className="relative group cursor-pointer"
-        onClick={(e) => {
-          const rect = e.currentTarget.getBoundingClientRect();
-          onPop(id, rect);
-        }}
-      >
-        <div className={`w-16 h-20 rounded-[50%] ${colorClass} shadow-[inset_-5px_-5px_15px_rgba(0,0,0,0.2)] relative flex items-center justify-center after:content-[''] after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-2 after:h-2 after:bg-current after:[clip-path:polygon-[50%_0,0_100%,100%_100%]]`} />
-        <div className="w-0.5 h-24 bg-white/30 mx-auto -mt-1 origin-top" />
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-          <span className="text-white text-xs font-bold drop-shadow-md bg-black/30 px-2 py-1 rounded-full backdrop-blur-sm">POP!</span>
-        </div>
-      </motion.button>
-    );
-  };
-
-
 export function CelebrationCarnivalTemplate({ data, slug }: TemplateProps) {
   const shouldReduceMotion = useReducedMotion();
 
@@ -167,21 +135,12 @@ export function CelebrationCarnivalTemplate({ data, slug }: TemplateProps) {
     }, 1000);
   };
 
-  const countdownIntervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (countdownIntervalRef.current) clearInterval(countdownIntervalRef.current);
-    };
-  }, []);
-
   const handleSurprise = () => {
-    if (countdownIntervalRef.current) clearInterval(countdownIntervalRef.current);
     setCountdown(3);
-    countdownIntervalRef.current = setInterval(() => {
+    const countInterval = setInterval(() => {
       setCountdown((prev) => {
         if (prev === 1) {
-          if (countdownIntervalRef.current) clearInterval(countdownIntervalRef.current);
+          clearInterval(countInterval);
           setStage('surprise');
           triggerConfetti("huge");
           setTimeout(() => {
@@ -196,7 +155,39 @@ export function CelebrationCarnivalTemplate({ data, slug }: TemplateProps) {
 
   // --- Components ---
 
+  const FloatingBalloon = ({ id, msg, delay, colorClass }: { id: number, msg: string, delay: number, colorClass: string }) => {
+    const isPopped = poppedBalloons.includes(id);
 
+    if (isPopped) {
+      return (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+          className="absolute z-20 bg-white/90 text-slate-800 p-3 rounded-xl shadow-xl text-sm font-medium border border-indigo-100 max-w-[150px] text-center"
+        >
+          {msg}
+        </motion.div>
+      );
+    }
+
+    return (
+      <motion.button
+        animate={shouldReduceMotion ? {} : { y: [0, -15, 0], x: [0, 5, -5, 0] }}
+        transition={{ repeat: Infinity, duration: 4 + delay, ease: "easeInOut" }}
+        className="relative group cursor-pointer"
+        onClick={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          triggerConfetti("small", (rect.left + rect.width / 2) / window.innerWidth, (rect.top + rect.height / 2) / window.innerHeight);
+          setPoppedBalloons(prev => [...prev, id]);
+        }}
+      >
+        <div className={\`w-16 h-20 rounded-[50%] \${colorClass} shadow-[inset_-5px_-5px_15px_rgba(0,0,0,0.2)] relative flex items-center justify-center after:content-[''] after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-2 after:h-2 after:bg-current after:clip-path-polygon-[50%_0,0_100%,100%_100%]\`} />
+        <div className="w-0.5 h-24 bg-white/30 mx-auto -mt-1 origin-top" />
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+          <span className="text-white text-xs font-bold drop-shadow-md bg-black/30 px-2 py-1 rounded-full backdrop-blur-sm">POP!</span>
+        </div>
+      </motion.button>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-[#0B0F19] text-white relative overflow-hidden font-sans selection:bg-pink-500/30 cursor-default">
@@ -274,7 +265,7 @@ export function CelebrationCarnivalTemplate({ data, slug }: TemplateProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            className={`min-h-screen w-full relative pt-12 pb-32 transition-colors duration-1000 ${candlesBlown && !wishesExploded ? 'bg-slate-900/90' : 'bg-transparent'}`}
+            className={\`min-h-screen w-full relative pt-12 pb-32 transition-colors duration-1000 \${candlesBlown && !wishesExploded ? 'bg-slate-900/90' : 'bg-transparent'}\`}
           >
             <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-indigo-900/40 to-transparent" />
@@ -290,10 +281,10 @@ export function CelebrationCarnivalTemplate({ data, slug }: TemplateProps) {
 
             <div className="max-w-4xl mx-auto px-4 space-y-32">
               <section className="relative min-h-[60vh] flex flex-col items-center justify-center text-center pt-20">
-                <div className="absolute top-10 left-10"><FloatingBalloon id={1} msg="You're amazing!" delay={0} colorClass="bg-pink-500" isPopped={poppedBalloons.includes(1)} onPop={(id, rect) => { triggerConfetti("small", (rect.left + rect.width / 2) / window.innerWidth, (rect.top + rect.height / 2) / window.innerHeight); setPoppedBalloons(prev => [...prev, id]); }} shouldReduceMotion={shouldReduceMotion} /></div>
-                <div className="absolute top-32 right-10 md:right-32"><FloatingBalloon id={2} msg="Hope you smile today!" delay={1.5} colorClass="bg-purple-500" isPopped={poppedBalloons.includes(2)} onPop={(id, rect) => { triggerConfetti("small", (rect.left + rect.width / 2) / window.innerWidth, (rect.top + rect.height / 2) / window.innerHeight); setPoppedBalloons(prev => [...prev, id]); }} shouldReduceMotion={shouldReduceMotion} /></div>
-                <div className="absolute bottom-0 left-32 md:left-48"><FloatingBalloon id={3} msg="Pop!" delay={0.7} colorClass="bg-amber-400" isPopped={poppedBalloons.includes(3)} onPop={(id, rect) => { triggerConfetti("small", (rect.left + rect.width / 2) / window.innerWidth, (rect.top + rect.height / 2) / window.innerHeight); setPoppedBalloons(prev => [...prev, id]); }} shouldReduceMotion={shouldReduceMotion} /></div>
-                <div className="absolute top-20 right-4"><FloatingBalloon id={4} msg={data.nickname ? `Favorite ${data.nickname}!` : "Keep shining!"} delay={2.2} colorClass="bg-blue-500" isPopped={poppedBalloons.includes(4)} onPop={(id, rect) => { triggerConfetti("small", (rect.left + rect.width / 2) / window.innerWidth, (rect.top + rect.height / 2) / window.innerHeight); setPoppedBalloons(prev => [...prev, id]); }} shouldReduceMotion={shouldReduceMotion} /></div>
+                <div className="absolute top-10 left-10"><FloatingBalloon id={1} msg="You're amazing!" delay={0} colorClass="bg-pink-500" /></div>
+                <div className="absolute top-32 right-10 md:right-32"><FloatingBalloon id={2} msg="Hope you smile today!" delay={1.5} colorClass="bg-purple-500" /></div>
+                <div className="absolute bottom-0 left-32 md:left-48"><FloatingBalloon id={3} msg="Pop!" delay={0.7} colorClass="bg-amber-400" /></div>
+                <div className="absolute top-20 right-4"><FloatingBalloon id={4} msg={data.nickname ? \`Favorite \${data.nickname}!\` : "Keep shining!"} delay={2.2} colorClass="bg-blue-500" /></div>
 
                 <motion.div
                   initial={{ y: 30, opacity: 0 }}
@@ -305,7 +296,7 @@ export function CelebrationCarnivalTemplate({ data, slug }: TemplateProps) {
                     Happy Birthday, <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-amber-300">{data.recipientName}</span> ❤️
                   </h2>
                   <div className="space-y-6 text-lg md:text-xl text-slate-300 font-medium leading-relaxed text-left">
-                    {data.message.split('\n').map((line, i) => (
+                    {data.message.split('\\n').map((line, i) => (
                       <motion.p
                         key={i}
                         initial={{ opacity: 0, x: -10 }}
@@ -332,13 +323,13 @@ export function CelebrationCarnivalTemplate({ data, slug }: TemplateProps) {
                 <div className="relative w-full max-w-lg flex flex-col items-center">
                   <div className="absolute -left-10 md:left-0 top-20">
                     <button
-                      className={`relative p-4 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border border-indigo-500/30 hover:scale-110 transition-transform ${boxOpen ? 'scale-110' : ''}`}
+                      className={\`relative p-4 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border border-indigo-500/30 hover:scale-110 transition-transform \${boxOpen ? 'scale-110' : ''}\`}
                       onClick={() => {
                         setBoxOpen(true);
                         if (!boxOpen) triggerConfetti("small");
                       }}
                     >
-                      <Gift className={`w-10 h-10 ${boxOpen ? 'text-amber-300' : 'text-pink-400'}`} />
+                      <Gift className={\`w-10 h-10 \${boxOpen ? 'text-amber-300' : 'text-pink-400'}\`} />
                       {boxOpen && (
                         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: -40 }} className="absolute -top-12 left-1/2 -translate-x-1/2 bg-white text-slate-900 text-xs font-bold px-3 py-1 rounded-full shadow-lg whitespace-nowrap">
                           {data.giftBoxSurprise || "A box full of love!"}
@@ -404,8 +395,8 @@ export function CelebrationCarnivalTemplate({ data, slug }: TemplateProps) {
                           animate={{
                             opacity: [0, 1, 1, 0],
                             scale: [0.5, 1, 1.1, 0.9],
-                            y: -200 - ((i * 47) % 200),
-                            x: ((i * 113 % 400) - 200)
+                            y: -200 - (Math.random() * 200),
+                            x: (Math.random() - 0.5) * 400
                           }}
                           transition={{ duration: 4, delay: i * 0.4, ease: "easeOut" }}
                           className="absolute bottom-1/2 left-1/2 font-bold text-lg text-white whitespace-nowrap bg-black/40 px-4 py-2 rounded-full backdrop-blur-sm border border-white/10"
@@ -429,24 +420,24 @@ export function CelebrationCarnivalTemplate({ data, slug }: TemplateProps) {
                   <div className="absolute top-10 w-full h-[1px] bg-white/20 border-b border-dashed border-white/10" />
 
                   <div className="flex flex-wrap justify-center gap-6 relative z-10 px-4">
-                    {memories.map((mem: { text: string }, i: number) => {
+                    {memories.map((mem: any, i: number) => {
                       const isActive = activeMemory === i;
                       return (
                         <motion.div
                           key={i}
                           layout
                           onClick={() => setActiveMemory(isActive ? null : i)}
-                          className={`cursor-pointer ${isActive ? 'fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4' : 'relative group'}`}
+                          className={\`cursor-pointer \${isActive ? 'fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4' : 'relative group'}\`}
                         >
                           <motion.div
-                            layoutId={`mem-${i}`}
-                            className={`bg-white p-4 pb-12 shadow-xl ${isActive ? 'w-full max-w-md rounded-xl' : 'w-48 h-56 rounded-sm rotate-[-3deg] group-hover:rotate-0 transition-transform'}`}
+                            layoutId={\`mem-\${i}\`}
+                            className={\`bg-white p-4 pb-12 shadow-xl \${isActive ? 'w-full max-w-md rounded-xl' : 'w-48 h-56 rounded-sm rotate-[-3deg] group-hover:rotate-0 transition-transform'}\`}
                             style={!isActive ? { rotate: i % 2 === 0 ? '-3deg' : '4deg' } : {}}
                           >
-                            <div className={`bg-slate-100 flex items-center justify-center border border-slate-200 ${isActive ? 'h-64 rounded-lg' : 'h-32'}`}>
+                            <div className={\`bg-slate-100 flex items-center justify-center border border-slate-200 \${isActive ? 'h-64 rounded-lg' : 'h-32'}\`}>
                                <ImageIcon className="w-12 h-12 text-slate-300" />
                             </div>
-                            <div className={`mt-4 text-center font-medium text-slate-800 ${isActive ? 'text-xl' : 'text-sm line-clamp-2'}`}>
+                            <div className={\`mt-4 text-center font-medium text-slate-800 \${isActive ? 'text-xl' : 'text-sm line-clamp-2'}\`}>
                               {mem.text}
                             </div>
 
@@ -505,7 +496,7 @@ export function CelebrationCarnivalTemplate({ data, slug }: TemplateProps) {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                     {guestMessages.map((msg: { message: string, sender: string, relationship: string }, i: number) => (
+                     {guestMessages.map((msg: any, i: number) => (
                        <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -534,7 +525,7 @@ export function CelebrationCarnivalTemplate({ data, slug }: TemplateProps) {
               <button
                 onClick={(e) => {
                   triggerConfetti("medium", e.clientX / window.innerWidth, e.clientY / window.innerHeight);
-                  alert(`You found a hidden surprise!\n\n"${data.carnivalHiddenMessages ? safeParse(data.carnivalHiddenMessages, [''])[0] : 'You make the world a better place.'}"`);
+                  alert(\`You found a hidden surprise!\\n\\n"\${data.carnivalHiddenMessages ? safeParse(data.carnivalHiddenMessages, [''])[0] : 'You make the world a better place.'}"\`);
                 }}
                 className="fixed bottom-4 left-4 text-white/20 hover:text-white/50 transition-colors"
                 title="Secret Button"
@@ -619,3 +610,6 @@ export function CelebrationCarnivalTemplate({ data, slug }: TemplateProps) {
     </div>
   );
 }
+`;
+
+fs.writeFileSync('src/components/templates/CelebrationCarnivalTemplate.tsx', code);
