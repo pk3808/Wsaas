@@ -409,46 +409,114 @@ export function HeroWish({ recipientName, senderName, message, age }: HeroWishPr
         </AnimatePresence>
       </motion.div>
 
-      {/* ─── FIXED FLOATING ANGEL GUIDE: SURPRISES AWAIT BELOW ─── */}
+      {/* ─── FLUTTERING FOREST ANGEL SCROLL GUIDE ─── */}
       <AnimatePresence>
         {!scrolled && (
           <motion.div
-            initial={{ opacity: 0, y: 30, x: "-50%" }}
-            animate={{ opacity: 1, y: 0, x: "-50%" }}
-            exit={{ opacity: 0, y: 30, x: "-50%" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            initial={{ opacity: 0, scale: 0.8, y: 30, x: "-50%" }}
+            animate={{ opacity: 1, scale: 1, y: 0, x: "-50%" }}
+            exit={{ opacity: 0, scale: 0.8, y: 20, x: "-50%" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             onClick={handleScrollExplore}
-            className="fixed bottom-6 left-1/2 z-40 cursor-pointer group flex flex-col items-center whitespace-nowrap"
+            className="fixed bottom-6 left-1/2 z-40 cursor-pointer flex items-center gap-3 select-none"
           >
+            {/* Fluttering Forest Spirit Angel */}
             <motion.div
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-              className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border-2 shadow-lg backdrop-blur-md"
+              animate={{
+                y: [0, -8, 0],
+                rotate: [-3, 3, -3],
+              }}
+              transition={{
+                duration: 2.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="relative flex flex-col items-center drop-shadow-md"
+            >
+              {/* Soft Angel Glow */}
+              <div
+                className="absolute -inset-2 rounded-full pointer-events-none"
+                style={{
+                  background: `radial-gradient(circle, ${GARDEN_COLORS.sunlightYellow}80 0%, ${GARDEN_COLORS.blossomPink}40 60%, transparent 80%)`,
+                  filter: "blur(8px)",
+                }}
+              />
+
+              {/* Angel SVG */}
+              <svg width="48" height="52" viewBox="0 0 60 65" fill="none" className="overflow-visible">
+                {/* Golden Halo */}
+                <ellipse cx="30" cy="10" rx="8" ry="3" stroke={GARDEN_COLORS.subtleGold} strokeWidth="1.8" fill="none" />
+
+                {/* Flapping Wings */}
+                <g style={{ transformOrigin: "24px 28px", animation: "gardenButterflyWing 0.35s ease-in-out infinite" }}>
+                  <path d="M24 28 C14 14, -2 10, 2 24 C6 32, 16 32, 24 28Z" fill={GARDEN_COLORS.softLavender} opacity={0.85} />
+                  <path d="M24 28 C16 34, 6 42, 10 44 C16 44, 22 36, 24 28Z" fill={GARDEN_COLORS.blossomPink} opacity={0.75} />
+                </g>
+                <g style={{ transformOrigin: "36px 28px", animation: "gardenButterflyWing 0.35s ease-in-out infinite reverse" }}>
+                  <path d="M36 28 C46 14, 62 10, 58 24 C54 32, 44 32, 36 28Z" fill={GARDEN_COLORS.softLavender} opacity={0.85} />
+                  <path d="M36 28 C44 34, 54 42, 50 44 C44 44, 38 36, 36 28Z" fill={GARDEN_COLORS.blossomPink} opacity={0.75} />
+                </g>
+
+                {/* Angel Body & Face */}
+                <ellipse cx="30" cy="30" rx="6.5" ry="11" fill={GARDEN_COLORS.ivory} />
+                <ellipse cx="30" cy="30" rx="5.5" ry="9" fill={GARDEN_COLORS.blossomPink} opacity={0.65} />
+                <circle cx="28" cy="27" r="1.1" fill={GARDEN_COLORS.darkBrown} />
+                <circle cx="32" cy="27" r="1.1" fill={GARDEN_COLORS.darkBrown} />
+                <path d="M28.5 30.5 Q30 32.5 31.5 30.5" stroke={GARDEN_COLORS.darkBrown} strokeWidth="0.8" strokeLinecap="round" />
+
+                {/* Floral Crown */}
+                <circle cx="30" cy="18" r="2" fill={GARDEN_COLORS.subtleGold} />
+                <circle cx="26" cy="19" r="1.8" fill={GARDEN_COLORS.blossomPink} />
+                <circle cx="34" cy="19" r="1.8" fill={GARDEN_COLORS.blossomPink} />
+
+                {/* Ethereal Ribbon Trail */}
+                <path d="M30 41 Q30 52 28 58" stroke={GARDEN_COLORS.subtleGold} strokeWidth="1.5" strokeLinecap="round" opacity={0.6} />
+              </svg>
+            </motion.div>
+
+            {/* Whimsical Angel Speech Bubble */}
+            <motion.div
+              animate={{ y: [0, -4, 0] }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+              className="relative px-4 py-2 rounded-2xl border shadow-lg backdrop-blur-md flex items-center gap-2 group-hover:scale-105 transition-transform"
               style={{
-                borderColor: `${GARDEN_COLORS.sage}`,
-                backgroundColor: `${GARDEN_COLORS.ivory}FA`,
-                boxShadow: `0 8px 32px ${GARDEN_COLORS.sage}35`,
+                borderColor: `${GARDEN_COLORS.subtleGold}80`,
+                backgroundColor: `${GARDEN_COLORS.ivory}F5`,
+                boxShadow: `0 4px 20px ${GARDEN_COLORS.sage}30`,
               }}
             >
-              {/* Cute Little Spirit Guide Avatar */}
-              <span className="text-xl select-none animate-bounce">🧚‍♀️</span>
-              
-              <div className="text-left pr-1">
+              {/* Little Speech Bubble Tail pointing to Angel */}
+              <div
+                className="absolute -left-2 top-1/2 -translate-y-1/2 w-0 h-0 border-y-4 border-y-transparent border-r-6"
+                style={{ borderRightColor: `${GARDEN_COLORS.ivory}F5` }}
+              />
+
+              <div>
                 <p
-                  className="text-xs font-bold tracking-wide"
+                  className="text-xs sm:text-sm font-semibold tracking-wide"
                   style={{
                     fontFamily: "var(--font-serif)",
                     color: GARDEN_COLORS.forestGreen,
                   }}
                 >
-                  Magical surprises await below!
+                  Surprises wait for you below… ✨
                 </p>
-                <p className="text-[10px] text-soft-brown font-medium">
-                  Tap here or scroll down to explore 🌸 ↓
+                <p
+                  className="text-[10px] italic"
+                  style={{ color: GARDEN_COLORS.warmBrown }}
+                >
+                  Scroll down to explore the garden
                 </p>
               </div>
 
-              <ChevronDown className="w-4 h-4 text-emerald-600 group-hover:translate-y-1 transition-transform shrink-0" />
+              <motion.div
+                animate={{ y: [0, 4, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                className="text-sm font-bold pl-1"
+                style={{ color: GARDEN_COLORS.forestGreen }}
+              >
+                ↓
+              </motion.div>
             </motion.div>
           </motion.div>
         )}
