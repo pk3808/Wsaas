@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   BookOpenText,
   Palette,
@@ -12,7 +13,8 @@ import {
   X,
   Sparkles,
   Heart,
-  Mail
+  Mail,
+  ArrowLeft,
 } from "lucide-react";
 import { LoginModal } from "@/components/LoginModal";
 import { motion, AnimatePresence } from "framer-motion";
@@ -21,24 +23,27 @@ export function Navbar() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const pathname = usePathname();
+
+  const isHome = pathname === "/";
 
   const navItems = [
     {
-      href: "#story",
+      href: "/#story",
       label: "Our Story",
       icon: BookOpenText,
       color: "text-coral",
       bgColor: "bg-coral/10",
     },
     {
-      href: "#templates",
+      href: "/#templates",
       label: "5 Themes",
       icon: Palette,
       color: "text-lavender",
       bgColor: "bg-lavender/10",
     },
     {
-      href: "#how",
+      href: "/#how",
       label: "How It Works",
       icon: Wand2,
       color: "text-sky",
@@ -52,50 +57,71 @@ export function Navbar() {
         {/* Main Nav Content Bar */}
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-8 h-15 flex items-center justify-between gap-4">
           
-          {/* ─── Logo Section ─── */}
-          <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-            <div className="relative w-8 h-8 rounded-xl bg-coral/10 border border-coral/25 flex items-center justify-center text-coral group-hover:scale-105 transition-transform shadow-xs">
-              <Mail className="w-4 h-4" />
-              <Heart className="w-2.5 h-2.5 absolute -top-1 -right-1 text-coral fill-coral animate-bounce" />
-            </div>
-            <div className="flex items-baseline gap-2">
-              <span className="font-extrabold text-lg sm:text-xl text-ink tracking-tight group-hover:text-coral transition-colors">
-                WishCraft
-              </span>
-              <span className="hidden sm:inline font-[family-name:var(--font-handwritten)] text-xs text-soft-brown/70">
-                keepsakes ✦
-              </span>
-            </div>
-          </Link>
+          {/* ─── Logo & Back Section ─── */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Universal Back Pill on Far Left Corner */}
+            {!isHome && (
+              <Link
+                href="/"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-paper hover:bg-white border border-warm-gray/20 text-soft-brown hover:text-ink text-xs font-bold transition-all shadow-2xs shrink-0"
+              >
+                <ArrowLeft className="w-3.5 h-3.5 text-coral" />
+                <span>Back</span>
+              </Link>
+            )}
 
-          {/* ─── Center Nav with Lucide Icons & Wavy Pill Hover ─── */}
-          <nav className="hidden md:flex items-center gap-1.5 bg-paper/70 px-2 py-1 rounded-full border border-warm-gray/10">
-            {navItems.map((item, index) => {
-              const Icon = item.icon;
-              const isHovered = hoveredIndex === index;
-              return (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  className="relative px-3.5 py-1.5 rounded-full text-xs font-bold text-soft-brown hover:text-ink transition-all flex items-center gap-2"
-                >
-                  {isHovered && (
-                    <motion.div
-                      layoutId="navPillHover"
-                      className={`absolute inset-0 rounded-full ${item.bgColor} border border-warm-gray/15`}
-                      transition={{ type: "spring", stiffness: 350, damping: 25 }}
-                    />
-                  )}
-                  <span className={`relative z-10 p-1 rounded-md ${item.bgColor} ${item.color}`}>
-                    <Icon className="w-3.5 h-3.5" />
-                  </span>
-                  <span className="relative z-10">{item.label}</span>
-                </a>
-              );
-            })}
-          </nav>
+            <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+              <div className="relative w-8 h-8 rounded-xl bg-coral/10 border border-coral/25 flex items-center justify-center text-coral group-hover:scale-105 transition-transform shadow-xs">
+                <Mail className="w-4 h-4" />
+                <Heart className="w-2.5 h-2.5 absolute -top-1 -right-1 text-coral fill-coral animate-bounce" />
+              </div>
+              <div className="flex items-baseline gap-2">
+                <span className="font-extrabold text-lg sm:text-xl text-ink tracking-tight group-hover:text-coral transition-colors">
+                  WishCraft
+                </span>
+                <span className="hidden sm:inline font-[family-name:var(--font-cursive)] text-sm text-soft-brown/70 font-bold">
+                  keepsakes ✦
+                </span>
+              </div>
+            </Link>
+          </div>
+
+          {/* ─── Center Nav with Lucide Icons (Shown on Home or standard routes) ─── */}
+          {isHome ? (
+            <nav className="hidden md:flex items-center gap-1.5 bg-paper/70 px-2 py-1 rounded-full border border-warm-gray/10">
+              {navItems.map((item, index) => {
+                const Icon = item.icon;
+                const isHovered = hoveredIndex === index;
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onMouseEnter={() => setHoveredIndex(index)}
+                    onMouseLeave={() => setHoveredIndex(null)}
+                    className="relative px-3.5 py-1.5 rounded-full text-xs font-bold text-soft-brown hover:text-ink transition-all flex items-center gap-2"
+                  >
+                    {isHovered && (
+                      <motion.div
+                        layoutId="navPillHover"
+                        className={`absolute inset-0 rounded-full ${item.bgColor} border border-warm-gray/15`}
+                        transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                      />
+                    )}
+                    <span className={`relative z-10 p-1 rounded-md ${item.bgColor} ${item.color}`}>
+                      <Icon className="w-3.5 h-3.5" />
+                    </span>
+                    <span className="relative z-10">{item.label}</span>
+                  </a>
+                );
+              })}
+            </nav>
+          ) : (
+            <div className="hidden md:flex items-center gap-2">
+              <span className="font-[family-name:var(--font-cursive)] text-sm text-coral font-bold bg-[#FFF3ED] px-3 py-0.5 rounded-full border border-coral/15">
+                interactive keepsake studio ✦
+              </span>
+            </div>
+          )}
 
           {/* ─── Actions ─── */}
           <div className="flex items-center gap-2.5 shrink-0">
@@ -107,14 +133,16 @@ export function Navbar() {
               <span>Sign In</span>
             </button>
 
-            <Link
-              href="/create"
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-ink hover:bg-ink/90 text-cream font-bold text-xs shadow-sm transition-all active:scale-95 group"
-            >
-              <PlusCircle className="w-3.5 h-3.5 text-cream group-hover:rotate-90 transition-transform duration-300" />
-              <span>Create Wish</span>
-              <Sparkles className="w-3 h-3 text-coral animate-pulse" />
-            </Link>
+            {isHome && (
+              <Link
+                href="/create"
+                className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-ink hover:bg-ink/90 text-cream font-bold text-xs shadow-sm transition-all active:scale-95 group"
+              >
+                <PlusCircle className="w-3.5 h-3.5 text-cream group-hover:rotate-90 transition-transform duration-300" />
+                <span>Create Wish</span>
+                <Sparkles className="w-3 h-3 text-coral animate-pulse" />
+              </Link>
+            )}
 
             {/* Mobile menu trigger */}
             <button
@@ -153,6 +181,14 @@ export function Navbar() {
               exit={{ opacity: 0, height: 0 }}
               className="md:hidden bg-paper border-b border-warm-gray/10 px-4 py-3 space-y-2 overflow-hidden"
             >
+              <Link
+                href="/"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-bold text-soft-brown hover:bg-cream hover:text-ink transition-all"
+              >
+                <ArrowLeft className="w-4 h-4 text-coral" />
+                <span>Home Page</span>
+              </Link>
               {navItems.map((item) => {
                 const Icon = item.icon;
                 return (
