@@ -121,8 +121,6 @@ export function VintageScrapbook({ data, slug }: TemplateProps) {
               </div>
 
             </div>
-
-            <VisitorComments slug={slug} recipientName={data.recipientName} />
           </motion.div>
         )}
       </AnimatePresence>

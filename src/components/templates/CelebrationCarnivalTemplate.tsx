@@ -157,9 +157,6 @@ export function CelebrationCarnivalTemplate({ data, slug }: TemplateProps) {
                 </div>
               </div>
             </div>
-
-            {/* Visitor Comment System */}
-            <VisitorComments slug={slug} recipientName={data.recipientName} />
           </motion.div>
         )}
       </AnimatePresence>

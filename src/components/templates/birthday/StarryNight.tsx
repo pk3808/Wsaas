@@ -93,10 +93,6 @@ export function StarryNight({ data, slug }: { data: WishData; slug: string }) {
                 With love, <br/> <span className="text-xl text-amber-100 not-italic">{data.senderName}</span>
               </motion.div>
             </div>
-
-            <div className="bg-[#131B33]/50 backdrop-blur-sm border border-blue-900/50 rounded-2xl p-6">
-              <VisitorComments slug={slug} recipientName={data.recipientName} />
-            </div>
           </motion.div>
         )}
       </AnimatePresence>

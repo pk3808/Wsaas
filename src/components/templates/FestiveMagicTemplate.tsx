@@ -125,10 +125,10 @@ export function FestiveMagicTemplate({ data, slug }: TemplateProps) {
                   <Sparkles className="w-4 h-4 text-yellow-300" /> Spread Festive Joy 🎄
                 </button>
               </div>
+              <p className="text-xs font-mono text-emerald-300/80">
+                Warmest winter wishes from our hearts to yours ✨
+              </p>
             </div>
-
-            {/* Comments Guestbook */}
-            <VisitorComments slug={slug} recipientName={data.recipientName} />
           </motion.div>
         )}
       </AnimatePresence>

@@ -87,10 +87,6 @@ export function NeonNightclub({ data, slug }: { data: WishData; slug: string }) 
                 <span>From: {data.senderName}</span>
               </div>
             </div>
-
-            <div className="bg-gray-900/60 p-6 rounded-2xl border border-blue-500/30">
-              <VisitorComments slug={slug} recipientName={data.recipientName} />
-            </div>
           </motion.div>
         )}
       </AnimatePresence>

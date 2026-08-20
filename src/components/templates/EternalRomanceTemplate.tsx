@@ -137,11 +137,9 @@ export function EternalRomanceTemplate({ data, slug }: TemplateProps) {
                 >
                   <Heart className="w-5 h-5 fill-white text-white" /> Send Hugs & Kisses 💕
                 </button>
+                <span className="font-mono text-xs">Together Forever & Always ♡</span>
               </div>
             </div>
-
-            {/* Comments Guestbook */}
-            <VisitorComments slug={slug} recipientName={data.recipientName} />
           </motion.div>
         )}
       </AnimatePresence>

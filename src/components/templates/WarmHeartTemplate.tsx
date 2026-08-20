@@ -121,11 +121,11 @@ export function WarmHeartTemplate({ data, slug }: TemplateProps) {
                 >
                   <Smile className="w-5 h-5" /> Send Virtual Hug 🫂 ({hugCount})
                 </button>
-              </div>
+                <p className="text-xs font-mono text-teal-800/70">
+                Forever grateful for your warmth, guidance & friendship 🌸
+              </p>
             </div>
-
-            {/* Comments Guestbook */}
-            <VisitorComments slug={slug} recipientName={data.recipientName} />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

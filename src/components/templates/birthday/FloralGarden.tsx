@@ -90,10 +90,6 @@ export function FloralGarden({ data, slug }: { data: WishData; slug: string }) {
                   Warmly, <br/> {data.senderName}
                 </div>
               </div>
-
-              <div className="bg-white/60 backdrop-blur-sm rounded-3xl p-6 border border-emerald-100 shadow-sm">
-                <VisitorComments slug={slug} recipientName={data.recipientName} />
-              </div>
             </motion.div>
           )}
         </AnimatePresence>

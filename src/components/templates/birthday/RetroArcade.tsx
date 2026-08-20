@@ -81,11 +81,6 @@ export function RetroArcade({ data, slug }: { data: WishData; slug: string }) {
                 &gt; SYSTEM MSG FROM: {data.senderName}
               </div>
             </div>
-
-            <div className="border-4 border-[#FF00FF] bg-black p-6 shadow-[0_0_15px_#FF00FF]">
-              <h3 className="text-xl text-[#FF00FF] mb-4 text-center uppercase">-- High Scores (Guestbook) --</h3>
-              <VisitorComments slug={slug} recipientName={data.recipientName} />
-            </div>
           </motion.div>
         )}
       </AnimatePresence>

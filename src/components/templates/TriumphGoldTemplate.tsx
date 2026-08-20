@@ -111,18 +111,16 @@ export function TriumphGoldTemplate({ data, slug }: TemplateProps) {
               </div>
 
               {/* Sparkle Trigger */}
-              <div className="pt-2 flex justify-center">
+              <div className="pt-2 flex flex-col items-center gap-4">
                 <button
                   onClick={triggerGoldConfetti}
                   className="px-8 py-3.5 rounded-full bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-black font-bold shadow-lg shadow-amber-950/50 transition-transform active:scale-95 flex items-center gap-2 text-sm"
                 >
                   <Sparkles className="w-4 h-4 text-black" /> Raise a Toast & Sparkles 🥂
                 </button>
+                <span className="font-mono text-xs text-amber-400">Class of 2026 Honors & Excellence</span>
               </div>
             </div>
-
-            {/* Comments Guestbook */}
-            <VisitorComments slug={slug} recipientName={data.recipientName} />
           </motion.div>
         )}
       </AnimatePresence>
