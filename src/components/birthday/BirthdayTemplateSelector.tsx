@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { TEMPLATES, type TemplateIdType } from "@/lib/config";
-import { ArrowRight, ChevronLeft, Check } from "lucide-react";
+import { ArrowRight, ChevronLeft, Check, Eye } from "lucide-react";
 
 interface BirthdayTemplateSelectorProps {
   onSelect: (templateId: TemplateIdType) => void;
@@ -12,30 +12,29 @@ interface BirthdayTemplateSelectorProps {
 
 export function BirthdayTemplateSelector({ onSelect, onBack }: BirthdayTemplateSelectorProps) {
   const birthdayTemplates = TEMPLATES.filter(t => t.defaultOccasion === "birthday");
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const [selectedIndex, setSelectedIndex] = useState<number>(Math.floor(birthdayTemplates.length / 2));
 
-  // Layout calculations for the fan effect
-  const calculateTransform = (index: number, isHovered: boolean, total: number) => {
-    // Distribute cards along an arc
-    const spreadAngle = 40; // Total angle to spread cards across
-    const stepAngle = spreadAngle / (total - 1);
-    const startAngle = -spreadAngle / 2;
-    const baseRotation = startAngle + stepAngle * index;
+  // Layout calculations for the dynamic focus carousel
+  const calculateTransform = (index: number) => {
+    const diff = index - selectedIndex;
+    const absDiff = Math.abs(diff);
 
-    // Shift cards slightly upwards in the middle
-    const distanceFromCenter = Math.abs(index - (total - 1) / 2);
-    const baseY = Math.pow(distanceFromCenter, 2) * 8;
-
-    if (isHovered) {
-      return { y: -40, rotate: 0, scale: 1.05, zIndex: 50 };
+    // Centered item
+    if (diff === 0) {
+      return { x: 0, scale: 1, zIndex: 40, opacity: 1, rotateY: 0 };
     }
 
+    // Items to the sides
+    const direction = diff > 0 ? 1 : -1;
+    // We adjust xOffset slightly for smaller screens
+    const xOffset = direction * (120 + (absDiff - 1) * 70);
+
     return {
-      y: baseY,
-      rotate: baseRotation,
-      scale: 1,
-      zIndex: index === selectedIndex ? 40 : 30 - distanceFromCenter,
+      x: xOffset,
+      scale: Math.max(0.65, 1 - absDiff * 0.15),
+      zIndex: 30 - absDiff,
+      opacity: Math.max(0.3, 1 - absDiff * 0.3),
+      rotateY: direction * -15 // Slight tilt towards center
     };
   };
 
@@ -64,45 +63,57 @@ export function BirthdayTemplateSelector({ onSelect, onBack }: BirthdayTemplateS
         </p>
       </div>
 
-      {/* 3D Fan Grid */}
-      <div className="relative w-full h-[350px] flex justify-center items-end pb-10 perspective-1000">
+      {/* Dynamic Focus Carousel */}
+      <div className="relative w-full h-[400px] flex justify-center items-center perspective-1000 overflow-hidden mb-8">
         {birthdayTemplates.map((template, idx) => {
-          const isHovered = hoveredIndex === idx;
           const isSelected = selectedIndex === idx;
-          const transform = calculateTransform(idx, isHovered, birthdayTemplates.length);
+          const transform = calculateTransform(idx);
 
           return (
             <motion.div
               key={template.id}
               onClick={() => setSelectedIndex(idx)}
-              onMouseEnter={() => setHoveredIndex(idx)}
-              onMouseLeave={() => setHoveredIndex(null)}
               animate={{
-                y: transform.y,
-                rotate: transform.rotate,
+                x: transform.x,
                 scale: transform.scale,
                 zIndex: transform.zIndex,
+                opacity: transform.opacity,
+                rotateY: transform.rotateY,
               }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              className={`absolute bottom-10 w-44 h-60 md:w-52 md:h-72 rounded-2xl cursor-pointer shadow-xl border-4 ${
-                isSelected ? 'border-coral' : 'border-white'
-              } flex flex-col p-4 overflow-hidden origin-bottom transition-shadow hover:shadow-2xl`}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              className={`absolute w-56 h-80 md:w-64 md:h-96 rounded-2xl cursor-pointer shadow-xl border-4 ${
+                isSelected ? 'border-coral shadow-coral/20 shadow-2xl' : 'border-white'
+              } flex flex-col p-4 overflow-hidden origin-center transition-shadow`}
               style={{ backgroundColor: template.themeColor }}
             >
                {/* Card content preview based on theme color */}
-               <div className="flex-1 bg-white/95 backdrop-blur-sm rounded-xl p-3 flex flex-col justify-between border border-black/5">
-                  <div className="text-4xl text-center pt-2 drop-shadow-sm">{template.sampleVisual}</div>
-                  <div className="text-center space-y-1.5 mt-auto">
-                     <div className="font-bold text-xs leading-tight" style={{ color: template.themeColor }}>{template.name}</div>
-                     <div className="text-[9px] text-gray-500 font-medium leading-tight">{template.badgeText}</div>
-                  </div>
-               </div>
+               <div className="flex-1 bg-white/95 backdrop-blur-sm rounded-xl p-4 flex flex-col justify-between border border-black/5 relative">
+                  <div className="text-6xl text-center pt-4 drop-shadow-sm">{template.sampleVisual}</div>
 
-               {isSelected && (
-                 <div className="absolute top-2 right-2 bg-coral text-white rounded-full p-1 shadow-md">
-                   <Check className="w-3 h-3" />
-                 </div>
-               )}
+                  <div className="text-center space-y-1.5 mt-auto pb-4">
+                     <div className="font-bold text-sm md:text-base leading-tight" style={{ color: template.themeColor }}>{template.name}</div>
+                     <div className="text-[10px] md:text-xs text-gray-500 font-medium leading-tight">{template.badgeText}</div>
+                  </div>
+
+                  {isSelected && (
+                    <div className="absolute top-2 right-2 bg-coral text-white rounded-full p-1 shadow-md">
+                      <Check className="w-4 h-4" />
+                    </div>
+                  )}
+
+                  {isSelected && (
+                     <button
+                       onClick={(e) => {
+                         e.stopPropagation();
+                         alert(`Preview mode for ${template.name} is coming soon!`);
+                       }}
+                       className="absolute bottom-2 right-2 bg-paper border border-warm-gray/20 hover:border-warm-gray/40 text-ink rounded-full p-2 shadow-sm transition-all z-50 group flex items-center justify-center bg-white"
+                       title="Preview Theme"
+                     >
+                       <Eye className="w-4 h-4 text-soft-brown group-hover:text-ink group-hover:scale-110 transition-transform" />
+                     </button>
+                  )}
+               </div>
             </motion.div>
           );
         })}
