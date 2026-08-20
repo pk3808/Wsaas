@@ -101,7 +101,7 @@ export function CreateWishForm() {
     const encoded = encodeData(payload);
     const slug = formData.recipientName.trim().toLowerCase().replace(/\s+/g, "-");
     const origin = typeof window !== "undefined" ? window.location.origin : "";
-    setGeneratedUrl(`${origin}/to/${slug}?d=${encoded}`);
+    setGeneratedUrl(`${origin}/to/${slug}#d=${encoded}`);
     setCopied(false);
 
     // Celebration confetti burst

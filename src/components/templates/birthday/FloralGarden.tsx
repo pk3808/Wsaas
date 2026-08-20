@@ -1,99 +1,105 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import { type WishData } from "@/lib/config";
-import { VisitorComments } from "@/components/VisitorComments";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import { Flower, Leaf } from "lucide-react";
+import { GARDEN_KEYFRAMES, GARDEN_COLORS } from "./floral-garden/garden-css";
+import { GardenIntro } from "./floral-garden/GardenIntro";
+import { GardenScene } from "./floral-garden/GardenScene";
+import { FloatingPetals } from "./floral-garden/FloatingPetals";
+import { HeroWish } from "./floral-garden/HeroWish";
+import { SpiritCakeDelivery } from "./floral-garden/SpiritCakeDelivery";
+import { FlowerMessages } from "./floral-garden/FlowerMessages";
+import { WishFlowers } from "./floral-garden/WishFlowers";
+import { MemoryPath } from "./floral-garden/MemoryPath";
+import { WishTree } from "./floral-garden/WishTree";
+import { HiddenButterfly } from "./floral-garden/HiddenButterfly";
+import { FinalGarden } from "./floral-garden/FinalGarden";
+import { ProgressIndicator } from "./floral-garden/ProgressIndicator";
+import { AmbientSoundToggle } from "./floral-garden/AmbientSoundToggle";
 
 export function FloralGarden({ data, slug }: { data: WishData; slug: string }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [inGarden, setInGarden] = useState(false);
+
+  const handleEnterGarden = useCallback(() => {
+    setInGarden(true);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-[#F0FDF4] text-[#064E3B] relative overflow-hidden font-sans">
-      {/* Soft background elements */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-emerald-200/50 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-teal-200/50 rounded-full blur-[120px] pointer-events-none" />
+    <>
+      {/* Inject garden keyframe animations */}
+      <style dangerouslySetInnerHTML={{ __html: GARDEN_KEYFRAMES }} />
 
-      {/* Floating Leaves (CSS Animation) */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(10)].map((_, i) => {
-          // Pseudo-random deterministic values based on index to avoid hydration mismatch and purity rules
-          const startX = (i * 73) % 1000 - 500;
-          const endX = (i * 127) % 1000 - 500;
-          const duration = 10 + (i % 5) * 2;
-          const delay = (i % 4) * 1.5;
+      {/* ─── PHASE 1: INTRO ─── */}
+      <AnimatePresence>
+        {!inGarden && (
+          <motion.div
+            key="intro"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+          >
+            <GardenIntro
+              recipientName={data.recipientName}
+              onEnterGarden={handleEnterGarden}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-          return (
-            <motion.div
-              key={i}
-              initial={{ y: -50, x: startX, rotate: 0 }}
-              animate={{
-                y: '120vh',
-                x: endX,
-                rotate: 360
-              }}
-              transition={{
-                duration: duration,
-                repeat: Infinity,
-                ease: "linear",
-                delay: delay
-              }}
-              className="absolute top-[-10%] text-emerald-300/40"
-            >
-              <Leaf className="w-8 h-8" />
-            </motion.div>
-          );
-        })}
-      </div>
+      {/* ─── PHASE 2: SEAMLESS LIVING GARDEN WORLD ─── */}
+      {inGarden && (
+        <motion.div
+          key="garden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+        >
+          {/* Floating petals layer */}
+          <FloatingPetals count={18} intensity="normal" />
 
-      <div className="container mx-auto px-4 py-12 relative z-10 flex flex-col items-center justify-center min-h-screen">
-        <AnimatePresence mode="wait">
-          {!isOpen ? (
-            <motion.div
-              key="gate"
-              exit={{ opacity: 0, scale: 0.9 }}
-              className="text-center space-y-6 cursor-pointer"
-              onClick={() => setIsOpen(true)}
-            >
-              <div className="w-32 h-32 mx-auto bg-white/60 backdrop-blur-md rounded-full border border-emerald-100 flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
-                <Flower className="w-16 h-16 text-emerald-500 animate-pulse" />
-              </div>
-              <h2 className="text-2xl font-serif text-emerald-800">A Garden of Wishes For</h2>
-              <h1 className="text-4xl font-serif font-bold text-emerald-900">{data.recipientName}</h1>
-              <p className="text-emerald-600 uppercase tracking-widest text-sm pt-4">Enter the Garden</p>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="garden"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="w-full max-w-2xl space-y-12"
-            >
-              <div className="bg-white/80 backdrop-blur-md p-10 rounded-t-full rounded-b-3xl shadow-xl border border-emerald-50 text-center space-y-8 relative">
+          {/* Hidden butterfly easter egg */}
+          <HiddenButterfly />
 
-                <div className="absolute top-8 left-1/2 -translate-x-1/2">
-                   <Flower className="w-8 h-8 text-emerald-400" />
-                </div>
+          {/* Ambient sound toggle */}
+          <AmbientSoundToggle />
 
-                <div className="pt-12">
-                  <h1 className="text-4xl md:text-5xl font-serif text-emerald-900 mb-4">Happy Birthday, <br/> {data.recipientName}</h1>
-                  <div className="h-px w-24 bg-emerald-200 mx-auto" />
-                </div>
+          {/* Scroll progress indicator */}
+          <ProgressIndicator />
 
-                <p className="text-lg text-emerald-700/80 leading-relaxed font-serif px-4">
-                  {data.message}
-                </p>
+          {/* Garden scene (parallax bg + trees + grass + sunlight) */}
+          <GardenScene isActive={true}>
+            {/* Section 1: Hero Birthday Wish with Spirit Angels Cake Delivery */}
+            <HeroWish
+              recipientName={data.recipientName}
+              senderName={data.senderName}
+              message={data.message}
+              age={data.age}
+            />
 
-                <div className="pt-6 font-medium text-emerald-800">
-                  Warmly, <br/> {data.senderName}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </div>
+            {/* Section 2: Interactive Flower Messages */}
+            <FlowerMessages
+              nickname={data.nickname}
+              recipientName={data.recipientName}
+            />
+
+            {/* Section 4: Things I Wish For You */}
+            <WishFlowers recipientName={data.recipientName} />
+
+            {/* Section 5: Memory Path */}
+            <MemoryPath recipientName={data.recipientName} />
+
+            {/* Section 6: The Wish Tree */}
+            <WishTree recipientName={data.recipientName} />
+
+            {/* Section 7: Final Sunset Scene */}
+            <FinalGarden
+              recipientName={data.recipientName}
+              senderName={data.senderName}
+            />
+          </GardenScene>
+        </motion.div>
+      )}
+    </>
   );
 }

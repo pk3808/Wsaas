@@ -12,7 +12,23 @@ function DynamicWishClientContent({ slug }: { slug: string }) {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    const d = searchParams.get("d");
+    let d: string | null = null;
+
+    // 1. Try reading from URL hash (#d=... or #ey...) which is never sent to the server in HTTP headers
+    if (typeof window !== "undefined" && window.location.hash) {
+      const hash = window.location.hash.substring(1); // remove '#'
+      if (hash.startsWith("d=")) {
+        d = hash.substring(2);
+      } else if (hash.length > 5) {
+        d = hash;
+      }
+    }
+
+    // 2. Fallback to query string (?d=...) for backward compatibility
+    if (!d) {
+      d = searchParams.get("d");
+    }
+
     if (d) {
       const decoded = decodeData(d);
       if (decoded && (decoded as WishData).recipientName) {
