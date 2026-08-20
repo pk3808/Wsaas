@@ -7,7 +7,7 @@ import { ArrowRight, Star, Sparkles, Music, ChevronDown } from "lucide-react";
 import confetti from "canvas-confetti";
 
 /* ═══════════════════════════════════════════════════════════════════
-   LIGHT SKETCHY & WAVY SIDE ARTWORK
+   LIGHT SKETCHY & WAVY SIDE ARTWORK (DESKTOP)
    ═══════════════════════════════════════════════════════════════════ */
 
 function IllustrationLeft() {
@@ -145,35 +145,28 @@ export function StoryHero() {
   return (
     <>
       {/* ══════════════════════════════════════════════════════════
-          FIRST PAGE FULL VIEWPORT HERO FOLD (DESKTOP + MOBILE)
+          HERO SECTION (SPACIOUS & BEAUTIFULLY PROPORTIONED)
           ══════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-[calc(100svh-68px)] flex flex-col justify-center items-center px-4 py-4 sm:py-8 overflow-hidden">
+      <section className="relative min-h-[calc(100svh-68px)] flex flex-col justify-center items-center px-4 py-8 sm:py-14 overflow-hidden">
         {/* Dot grid paper */}
         <div className="absolute inset-0 bg-dotgrid opacity-40 pointer-events-none" />
 
-        {/* Light sketched side illustrations */}
+        {/* Light sketched side illustrations (Desktop) */}
         <IllustrationLeft />
         <IllustrationRight />
 
         {/* Notebook margin line */}
         <div className="absolute top-0 left-16 w-px h-full bg-coral/8 hidden xl:block pointer-events-none" />
 
-        {/* Sticky note */}
-        <div className="absolute top-6 right-[14%] xl:right-[18%] rotate-3 hidden xl:block z-10">
-          <div className="w-32 bg-amber-100 border border-amber-200/60 rounded-sm p-2.5 shadow-md">
-            <p className="font-[family-name:var(--font-cursive)] text-base text-amber-900 leading-snug font-bold">
-              Every message deserves to be a memory ♡
-            </p>
-          </div>
-        </div>
-
-        <div className="container mx-auto relative z-10 max-w-4xl lg:max-w-5xl flex flex-col items-center justify-center my-auto space-y-3 sm:space-y-4">
+        <div className="container mx-auto relative z-10 max-w-4xl lg:max-w-5xl flex flex-col items-center justify-center my-auto w-full space-y-4 sm:space-y-6">
           
-          {/* ═══ CREATIVE BADGE ═══ */}
-          <div className="flex justify-center">
+          {/* ═══ TOP ROW: CREATIVE BADGE + YELLOW STICKY NOTE (VISIBLE ON MOBILE & DESKTOP) ═══ */}
+          <div className="w-full flex flex-col items-center justify-center relative">
+            
+            {/* Creative Badge */}
             <div className="relative">
-              <div className="bg-paper border-2 border-dashed border-warm-gray/20 rounded-xl px-4 sm:px-5 py-1.5 sm:py-2 paper-shadow relative">
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-12 h-3 washi-tape rounded-sm" />
+              <div className="bg-paper border-2 border-dashed border-warm-gray/20 rounded-xl px-4 sm:px-6 py-2 sm:py-2.5 paper-shadow relative">
+                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-12 sm:w-14 h-3.5 washi-tape rounded-sm" />
                 <div className="flex items-center gap-2.5 sm:gap-4 text-[10px] sm:text-xs font-semibold text-soft-brown">
                   <span className="flex items-center gap-1.5">
                     <span className="w-4 h-4 rounded-full bg-sage/15 border border-sage/25 flex items-center justify-center text-[10px]">✦</span>
@@ -192,34 +185,44 @@ export function StoryHero() {
                 </div>
               </div>
             </div>
+
+            {/* ═══ YELLOW STICKY NOTE (Shown on both Mobile & Desktop) ═══ */}
+            <div className="mt-2.5 sm:mt-0 sm:absolute sm:-top-2 sm:right-[10%] xl:right-[15%] rotate-[-2deg] sm:rotate-3 z-10">
+              <div className="w-36 sm:w-32 bg-amber-100/95 border border-amber-200/80 rounded-xs px-3 py-1.5 sm:p-2.5 shadow-sm">
+                <p className="font-[family-name:var(--font-cursive)] text-xs sm:text-sm text-amber-900 leading-tight font-bold text-center">
+                  Every message deserves to be a memory ♡
+                </p>
+              </div>
+            </div>
+
           </div>
 
-          {/* ═══ STYLISH CURSIVE HEADLINE ═══ */}
-          <div className="text-center space-y-2.5 sm:space-y-3.5 max-w-4xl mx-auto">
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-ink leading-[1.12]">
-              <span className="font-[family-name:var(--font-serif)] font-medium text-xl sm:text-3xl md:text-4xl lg:text-5xl text-soft-brown block mb-0.5">
+          {/* ═══ STYLISH CURSIVE HEADLINE (Spacious & Airy) ═══ */}
+          <div className="text-center space-y-3.5 sm:space-y-5 max-w-4xl mx-auto w-full pt-1">
+            <h1 className="tracking-tight text-ink leading-[1.14]">
+              <span className="font-[family-name:var(--font-serif)] font-medium text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-soft-brown block mb-1">
                 Create a
               </span>
-              <span className="font-[family-name:var(--font-cursive)] font-bold text-coral text-5xl sm:text-6xl md:text-7xl lg:text-8xl inline-block -rotate-2 drop-shadow-xs px-2 sm:px-3">
+              <span className="font-[family-name:var(--font-cursive)] font-bold text-coral text-5xl sm:text-7xl md:text-8xl lg:text-9xl inline-block -rotate-2 drop-shadow-xs px-2 sm:px-3 my-0.5 sm:my-1">
                 Beautiful Page
               </span>
-              <span className="font-[family-name:var(--font-serif)] font-bold italic text-ink block mt-0.5">
+              <span className="font-[family-name:var(--font-serif)] font-bold italic text-ink block mt-1 text-2xl sm:text-4xl md:text-5xl lg:text-6xl">
                 to Wish Someone Special
               </span>
             </h1>
 
-            {/* Highlighted text */}
-            <p className="font-[family-name:var(--font-marker)] text-sm sm:text-base md:text-lg max-w-2xl sm:max-w-3xl mx-auto text-center leading-[1.55] sm:leading-[1.65] tracking-wide px-2">
-              <span className="bg-[#FFF3ED] text-ink px-2 py-0.5 rounded-[4px] [box-decoration-break:clone] [-webkit-box-decoration-break:clone] shadow-2xs">
+            {/* Highlighted text with healthy breathing space */}
+            <p className="font-[family-name:var(--font-marker)] text-sm sm:text-base md:text-lg max-w-2xl sm:max-w-3xl mx-auto text-center leading-[1.7] sm:leading-[1.8] tracking-wide px-3 pt-1">
+              <span className="bg-[#FFF3ED] text-ink px-2.5 sm:px-3 py-1 rounded-[4px] [box-decoration-break:clone] [-webkit-box-decoration-break:clone] shadow-2xs">
                 Turn ordinary birthday greetings, anniversary wishes & thank you notes into interactive digital keepsake pages — complete with animations, confetti, and a live guestbook.
               </span>
             </p>
 
             {/* Handwritten accent with flat highlighter marker & wavy bottom underline */}
-            <div className="flex items-center justify-center gap-2 pt-0.5 pb-0.5">
+            <div className="flex items-center justify-center gap-2 pt-1 pb-1">
               <DoodleHeart className="w-4 h-4 sm:w-5 sm:h-5 text-coral fill-coral/20 animate-pulse shrink-0" />
               <div className="relative inline-block">
-                <span className="bg-[#FFF3ED] text-ink px-3 py-0.5 rounded-[4px] shadow-2xs font-[family-name:var(--font-cursive)] text-base sm:text-xl md:text-2xl font-bold tracking-wide inline-block">
+                <span className="bg-[#FFF3ED] text-ink px-3 py-0.5 sm:py-1 rounded-[4px] shadow-2xs font-[family-name:var(--font-cursive)] text-base sm:text-xl md:text-2xl font-bold tracking-wide inline-block">
                   ...because a text message gets lost in chat history
                 </span>
                 <svg className="absolute -bottom-1.5 left-1 right-1 w-[calc(100%-8px)] h-2.5 text-coral/55 pointer-events-none mx-auto" viewBox="0 0 300 8" fill="none" preserveAspectRatio="none">
@@ -229,15 +232,21 @@ export function StoryHero() {
               <DoodleSparkle className="w-4 h-4 sm:w-5 sm:h-5 text-coral/40 shrink-0" />
             </div>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3.5 pt-1">
-              <Link href="/create" className="w-full sm:w-auto px-7 py-3 sm:py-3.5 rounded-2xl bg-ink text-cream font-bold text-xs sm:text-sm hover:bg-ink/90 transition-all flex items-center justify-center gap-2 active:scale-[0.97] group shadow-md">
-                <span>Start Creating — It's Free</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            {/* ═══ BUTTONS: COMPACT & AUTO-WIDTH ON MOBILE, LUXURY ON DESKTOP ═══ */}
+            <div className="flex flex-row items-center justify-center gap-2.5 sm:gap-4 pt-3 sm:pt-4 flex-wrap">
+              <Link
+                href="/create"
+                className="w-auto inline-flex items-center justify-center px-4 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl bg-ink text-cream font-bold text-xs sm:text-sm hover:bg-ink/90 transition-all gap-1.5 sm:gap-2 active:scale-[0.97] group shadow-md"
+              >
+                <span>Start Creating — Free</span>
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <a href="#comparison" className="w-full sm:w-auto px-6 py-3 sm:py-3.5 rounded-2xl bg-paper border border-warm-gray/15 text-ink font-semibold text-xs sm:text-sm hover:border-warm-gray/30 transition-all flex items-center justify-center gap-2">
-                <span>See How It Works</span>
-                <ChevronDown className="w-3.5 h-3.5 animate-bounce" />
+              <a
+                href="#comparison"
+                className="w-auto inline-flex items-center justify-center px-4 py-2.5 sm:px-7 sm:py-4 rounded-xl sm:rounded-2xl bg-paper border border-warm-gray/15 text-ink font-semibold text-xs sm:text-sm hover:border-warm-gray/30 transition-all gap-1.5 sm:gap-2 shadow-2xs"
+              >
+                <span>See Details</span>
+                <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-bounce" />
               </a>
             </div>
           </div>
