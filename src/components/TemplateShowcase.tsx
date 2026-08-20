@@ -37,6 +37,11 @@ export function TemplateShowcase() {
     triumph: { bg: "bg-amber-50", border: "border-amber-200", emoji: "🎓", headline: "Congratulations, Elena!", sub: "Golden sparkles • Achievement crest • Honors praise card", doodleColor: "text-amber-400/30" },
     festive: { bg: "bg-emerald-50", border: "border-emerald-200", emoji: "🎄", headline: "Happy Holidays, Millers!", sub: "Gift box unboxing • Snowfall canvas • Holiday magic", doodleColor: "text-emerald-400/30" },
     warmheart: { bg: "bg-teal-50", border: "border-teal-200", emoji: "💐", headline: "Thank You, David!", sub: "Wax seal reveal • Handwritten note • Virtual hug counter", doodleColor: "text-teal-400/30" },
+    "vintage-scrapbook": { bg: "bg-amber-50", border: "border-amber-900/20", emoji: "📸", headline: "Happy Birthday, Emma!", sub: "Vintage polaroids • Washi tape • Handwritten drawings", doodleColor: "text-amber-700/30" },
+    "neon-nightclub": { bg: "bg-pink-900", border: "border-pink-500/50", emoji: "🪩", headline: "Happy Birthday, Jake!", sub: "Neon glows • Laser grids • DJ beats", doodleColor: "text-pink-400/30" },
+    "starry-night": { bg: "bg-blue-950", border: "border-blue-500/50", emoji: "🌟", headline: "Happy Birthday, Lily!", sub: "Gold twinkling stars • Midnight blue • Elegant fonts", doodleColor: "text-amber-200/30" },
+    "retro-arcade": { bg: "bg-zinc-950", border: "border-green-500/50", emoji: "👾", headline: "Happy Birthday, Max!", sub: "8-bit pixels • High scores • Arcade vibes", doodleColor: "text-green-500/30" },
+    "floral-garden": { bg: "bg-emerald-50", border: "border-emerald-200", emoji: "🌸", headline: "Happy Birthday, Chloe!", sub: "Soft blossoms • Swaying leaves • Botanical frames", doodleColor: "text-emerald-400/30" },
   };
 
   const currentPreview = previewCards[activeTemplate];
