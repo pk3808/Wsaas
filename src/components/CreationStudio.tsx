@@ -6,6 +6,7 @@ import {
   type TemplateIdType,
 } from "@/lib/config";
 import { CraftModal } from "@/components/CraftModal";
+import { BirthdayTemplateSelector } from "@/components/birthday/BirthdayTemplateSelector";
 import {
   Sparkles,
   ArrowRight,
@@ -24,11 +25,30 @@ import { motion } from "framer-motion";
 export function CreationStudio() {
   const [activeModalTheme, setActiveModalTheme] = useState<TemplateIdType | null>(null);
   const [activeModalOccasion, setActiveModalOccasion] = useState<OccasionType>("birthday");
+  const [showBirthdaySelector, setShowBirthdaySelector] = useState(false);
 
   const handleOpenCraft = (occasion: OccasionType, themeId: TemplateIdType) => {
+    if (occasion === "birthday") {
+      setShowBirthdaySelector(true);
+      return;
+    }
     setActiveModalOccasion(occasion);
     setActiveModalTheme(themeId);
   };
+
+  const handleSelectBirthdayTheme = (templateId: TemplateIdType) => {
+    setActiveModalOccasion("birthday");
+    setActiveModalTheme(templateId);
+  };
+
+  if (showBirthdaySelector && activeModalTheme === null) {
+    return (
+      <BirthdayTemplateSelector
+        onSelect={handleSelectBirthdayTheme}
+        onBack={() => setShowBirthdaySelector(false)}
+      />
+    );
+  }
 
   return (
     <div className="w-full space-y-8 sm:space-y-10">
@@ -295,7 +315,10 @@ export function CreationStudio() {
       {/* ─── LETTER-WRITING DESK MODAL ─── */}
       <CraftModal
         isOpen={activeModalTheme !== null}
-        onClose={() => setActiveModalTheme(null)}
+        onClose={() => {
+          setActiveModalTheme(null);
+          setShowBirthdaySelector(false); // Reset completely when modal closes
+        }}
         initialTemplateId={activeModalTheme || "carnival"}
         initialOccasion={activeModalOccasion}
       />

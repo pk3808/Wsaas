@@ -1,5 +1,5 @@
 export interface TemplateConfig {
-  id: "carnival" | "romance" | "triumph" | "festive" | "warmheart";
+  id: "carnival" | "romance" | "triumph" | "festive" | "warmheart" | "vintage-scrapbook" | "neon-nightclub" | "starry-night" | "retro-arcade" | "floral-garden";
   name: string;
   tagline: string;
   defaultOccasion: OccasionType;
@@ -12,6 +12,68 @@ export interface TemplateConfig {
 }
 
 export const TEMPLATES: TemplateConfig[] = [
+  // ─── NEW BIRTHDAY TEMPLATES ───
+  {
+    id: "vintage-scrapbook",
+    name: "Vintage Scrapbook",
+    tagline: "Nostalgic handmade memory book with polaroids & washi tape.",
+    defaultOccasion: "birthday",
+    badgeText: "Nostalgic & Personal 📸",
+    themeColor: "#D4A373",
+    accentColor: "#FAEDCD",
+    bgTone: "bg-amber-900/10 border-amber-900/20 text-amber-900",
+    features: ["Polaroid Drops", "Handwritten SVG Drawings", "Sticky Note Guestbook"],
+    sampleVisual: "📸",
+  },
+  {
+    id: "neon-nightclub",
+    name: "Neon Nightclub",
+    tagline: "High-energy vibrant party with pulsing neon lights.",
+    defaultOccasion: "birthday",
+    badgeText: "Energetic & Modern 🪩",
+    themeColor: "#EC4899",
+    accentColor: "#FBCFE8",
+    bgTone: "bg-pink-500/10 border-pink-500/20 text-pink-500",
+    features: ["Pulsating Glow", "Neon Sign Text", "Geometric Confetti"],
+    sampleVisual: "🪩",
+  },
+  {
+    id: "starry-night",
+    name: "Magical Starry Night",
+    tagline: "Elegant, dreamy midnight sky with twinkling gold stars.",
+    defaultOccasion: "birthday",
+    badgeText: "Elegant & Dreamy 🌟",
+    themeColor: "#3B82F6",
+    accentColor: "#BFDBFE",
+    bgTone: "bg-blue-500/10 border-blue-500/20 text-blue-500",
+    features: ["Twinkling Stars", "Shooting Star Interactions", "Glowing Auroras"],
+    sampleVisual: "🌟",
+  },
+  {
+    id: "retro-arcade",
+    name: "Retro Arcade",
+    tagline: "Playful 8-bit nostalgia with arcade fonts and pixel art.",
+    defaultOccasion: "birthday",
+    badgeText: "Playful & Geeky 👾",
+    themeColor: "#EF4444",
+    accentColor: "#FECACA",
+    bgTone: "bg-red-500/10 border-red-500/20 text-red-500",
+    features: ["Pixelated Canvas", "Terminal Typing Text", "High Score Guestbook"],
+    sampleVisual: "👾",
+  },
+  {
+    id: "floral-garden",
+    name: "Floral Garden",
+    tagline: "Sophisticated serene nature vibes with soft cherry blossoms.",
+    defaultOccasion: "birthday",
+    badgeText: "Beautiful & Serene 🌸",
+    themeColor: "#10B981",
+    accentColor: "#D1FAE5",
+    bgTone: "bg-emerald-500/10 border-emerald-500/20 text-emerald-500",
+    features: ["Swaying Leaves", "Falling Petals", "Botanical Frames"],
+    sampleVisual: "🌸",
+  },
+  // ─── EXISTING GENERAL TEMPLATES ───
   {
     id: "carnival",
     name: "Celebration Carnival",

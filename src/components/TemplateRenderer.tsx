@@ -6,6 +6,11 @@ import { EternalRomanceTemplate } from "@/components/templates/EternalRomanceTem
 import { TriumphGoldTemplate } from "@/components/templates/TriumphGoldTemplate";
 import { FestiveMagicTemplate } from "@/components/templates/FestiveMagicTemplate";
 import { WarmHeartTemplate } from "@/components/templates/WarmHeartTemplate";
+import { VintageScrapbook } from "@/components/templates/birthday/VintageScrapbook";
+import { NeonNightclub } from "@/components/templates/birthday/NeonNightclub";
+import { StarryNight } from "@/components/templates/birthday/StarryNight";
+import { RetroArcade } from "@/components/templates/birthday/RetroArcade";
+import { FloralGarden } from "@/components/templates/birthday/FloralGarden";
 
 interface TemplateRendererProps {
   data: WishData;
@@ -21,6 +26,16 @@ export function TemplateRenderer({ data, slug }: TemplateRendererProps) {
   );
 
   switch (templateId) {
+    case "vintage-scrapbook":
+      return <VintageScrapbook data={data} slug={slug} />;
+    case "neon-nightclub":
+      return <NeonNightclub data={data} slug={slug} />;
+    case "starry-night":
+      return <StarryNight data={data} slug={slug} />;
+    case "retro-arcade":
+      return <RetroArcade data={data} slug={slug} />;
+    case "floral-garden":
+      return <FloralGarden data={data} slug={slug} />;
     case "romance":
       return <EternalRomanceTemplate data={data} slug={slug} />;
     case "triumph":
