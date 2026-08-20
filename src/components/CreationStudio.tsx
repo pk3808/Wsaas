@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   type OccasionType,
   type TemplateIdType,
@@ -27,6 +27,21 @@ export function CreationStudio() {
   const [activeModalOccasion, setActiveModalOccasion] = useState<OccasionType>("birthday");
   const [showBirthdaySelector, setShowBirthdaySelector] = useState(false);
 
+  useEffect(() => {
+    const handleNavBack = (e: Event) => {
+      if (activeModalTheme !== null) {
+        e.preventDefault();
+        setActiveModalTheme(null);
+      } else if (showBirthdaySelector) {
+        e.preventDefault();
+        setShowBirthdaySelector(false);
+      }
+    };
+
+    window.addEventListener("wishcraft-nav-back", handleNavBack);
+    return () => window.removeEventListener("wishcraft-nav-back", handleNavBack);
+  }, [showBirthdaySelector, activeModalTheme]);
+
   const handleOpenCraft = (occasion: OccasionType, themeId: TemplateIdType) => {
     if (occasion === "birthday") {
       setShowBirthdaySelector(true);
@@ -41,12 +56,20 @@ export function CreationStudio() {
     setActiveModalTheme(templateId);
   };
 
-  if (showBirthdaySelector && activeModalTheme === null) {
+  if (showBirthdaySelector) {
     return (
-      <BirthdayTemplateSelector
-        onSelect={handleSelectBirthdayTheme}
-        onBack={() => setShowBirthdaySelector(false)}
-      />
+      <>
+        <BirthdayTemplateSelector
+          onSelect={handleSelectBirthdayTheme}
+          onBack={() => setShowBirthdaySelector(false)}
+        />
+        <CraftModal
+          isOpen={activeModalTheme !== null}
+          onClose={() => setActiveModalTheme(null)}
+          initialTemplateId={activeModalTheme || "carnival"}
+          initialOccasion={activeModalOccasion}
+        />
+      </>
     );
   }
 
@@ -315,10 +338,7 @@ export function CreationStudio() {
       {/* ─── LETTER-WRITING DESK MODAL ─── */}
       <CraftModal
         isOpen={activeModalTheme !== null}
-        onClose={() => {
-          setActiveModalTheme(null);
-          setShowBirthdaySelector(false); // Reset completely when modal closes
-        }}
+        onClose={() => setActiveModalTheme(null)}
         initialTemplateId={activeModalTheme || "carnival"}
         initialOccasion={activeModalOccasion}
       />

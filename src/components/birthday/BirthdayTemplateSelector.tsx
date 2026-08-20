@@ -26,15 +26,14 @@ export function BirthdayTemplateSelector({ onSelect, onBack }: BirthdayTemplateS
 
     // Items to the sides
     const direction = diff > 0 ? 1 : -1;
-    // We adjust xOffset slightly for smaller screens
-    const xOffset = direction * (120 + (absDiff - 1) * 70);
+    const xOffset = direction * (140 + (absDiff - 1) * 80);
 
     return {
       x: xOffset,
-      scale: Math.max(0.65, 1 - absDiff * 0.15),
+      scale: Math.max(0.72, 1 - absDiff * 0.12),
       zIndex: 30 - absDiff,
-      opacity: Math.max(0.3, 1 - absDiff * 0.3),
-      rotateY: direction * -15 // Slight tilt towards center
+      opacity: Math.max(0.85, 1 - absDiff * 0.08),
+      rotateY: direction * -12 // Slight tilt towards center
     };
   };
 
@@ -45,26 +44,24 @@ export function BirthdayTemplateSelector({ onSelect, onBack }: BirthdayTemplateS
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="w-full max-w-5xl mx-auto py-12 px-4 flex flex-col items-center"
+      className="w-full max-w-5xl mx-auto pt-1 pb-8 px-4 flex flex-col items-center"
     >
-      <button
-        onClick={onBack}
-        className="self-start mb-8 flex items-center gap-2 text-sm font-semibold text-soft-brown hover:text-ink transition-colors"
-      >
-        <ChevronLeft className="w-4 h-4" /> Back to Occasions
-      </button>
-
-      <div className="text-center mb-16 space-y-4">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-ink tracking-tight">
-          Choose a <span className="text-coral">Masterpiece.</span>
+      <div className="text-center mb-6 space-y-2">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-ink leading-[1.12]">
+          Choose a{" "}
+          <span className="font-[family-name:var(--font-cursive)] text-coral text-4xl sm:text-5xl md:text-6xl font-bold px-1.5 inline-block -rotate-2">
+            Masterpiece.
+          </span>
         </h1>
-        <p className="text-soft-brown font-medium max-w-lg mx-auto">
-          6 handcrafted themes built specially for birthdays. Select the one that perfectly matches their vibe.
+        <p className="font-[family-name:var(--font-marker)] text-sm sm:text-base text-soft-brown max-w-xl mx-auto leading-relaxed">
+          <span className="bg-[#FFF3ED] text-ink px-2.5 py-0.5 rounded-[4px] shadow-2xs">
+            6 handcrafted themes built specially for birthdays. Select the one that perfectly matches their vibe ✦
+          </span>
         </p>
       </div>
 
       {/* Dynamic Focus Carousel */}
-      <div className="relative w-full h-[400px] flex justify-center items-center perspective-1000 overflow-hidden mb-8">
+      <div className="relative w-full h-[460px] flex justify-center items-center perspective-1000 my-4 py-4">
         {birthdayTemplates.map((template, idx) => {
           const isSelected = selectedIndex === idx;
           const transform = calculateTransform(idx);
@@ -72,7 +69,13 @@ export function BirthdayTemplateSelector({ onSelect, onBack }: BirthdayTemplateS
           return (
             <motion.div
               key={template.id}
-              onClick={() => setSelectedIndex(idx)}
+              onClick={() => {
+                if (isSelected) {
+                  onSelect(template.id as TemplateIdType);
+                } else {
+                  setSelectedIndex(idx);
+                }
+              }}
               animate={{
                 x: transform.x,
                 scale: transform.scale,
@@ -80,62 +83,95 @@ export function BirthdayTemplateSelector({ onSelect, onBack }: BirthdayTemplateS
                 opacity: transform.opacity,
                 rotateY: transform.rotateY,
               }}
-              transition={{ type: "spring", stiffness: 200, damping: 20 }}
-              className={`absolute w-56 h-80 md:w-64 md:h-96 rounded-2xl cursor-pointer shadow-xl border-4 ${
-                isSelected ? 'border-coral shadow-coral/20 shadow-2xl' : 'border-white'
-              } flex flex-col p-4 overflow-hidden origin-center transition-shadow`}
-              style={{ backgroundColor: template.themeColor }}
+              transition={{ type: "spring", stiffness: 220, damping: 22 }}
+              className={`absolute w-64 h-[390px] sm:w-72 sm:h-[410px] rounded-[28px] cursor-pointer transition-all flex flex-col p-5 justify-between ${
+                isSelected
+                  ? "bg-[#FFFDF9] border-2 border-coral shadow-2xl shadow-coral/20 ring-4 ring-coral/10 scale-[1.02]"
+                  : "bg-[#FFFDF7] border-2 shadow-xl hover:shadow-2xl"
+              }`}
+              style={{
+                borderColor: isSelected ? undefined : `${template.themeColor}55`,
+              }}
             >
-               {/* Card content preview based on theme color */}
-               <div className="flex-1 bg-white/95 backdrop-blur-sm rounded-xl p-4 flex flex-col justify-between border border-black/5 relative">
-                  <div className="text-6xl text-center pt-4 drop-shadow-sm">{template.sampleVisual}</div>
+              {/* Top Row: Badge & Check Icon */}
+              <div className="flex items-center justify-between">
+                <span
+                  className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider font-mono border"
+                  style={{
+                    backgroundColor: `${template.themeColor}18`,
+                    borderColor: `${template.themeColor}40`,
+                    color: template.themeColor,
+                  }}
+                >
+                  {template.badgeText || "Birthday Theme"}
+                </span>
 
-                  <div className="text-center space-y-1.5 mt-auto pb-4">
-                     <div className="font-bold text-sm md:text-base leading-tight" style={{ color: template.themeColor }}>{template.name}</div>
-                     <div className="text-[10px] md:text-xs text-gray-500 font-medium leading-tight">{template.badgeText}</div>
+                {isSelected ? (
+                  <div className="w-6 h-6 rounded-full bg-coral text-white flex items-center justify-center shadow-xs">
+                    <Check className="w-3.5 h-3.5" />
                   </div>
+                ) : (
+                  <span className="text-[10px] font-mono text-soft-brown font-bold bg-cream px-2 py-0.5 rounded-full border border-warm-gray/15">
+                    #{idx + 1}
+                  </span>
+                )}
+              </div>
 
-                  {isSelected && (
-                    <div className="absolute top-2 right-2 bg-coral text-white rounded-full p-1 shadow-md">
-                      <Check className="w-4 h-4" />
-                    </div>
-                  )}
+              {/* Visual Centerpiece */}
+              <div className="my-auto py-2 flex flex-col items-center text-center space-y-3">
+                <div className="text-6xl sm:text-7xl select-none filter drop-shadow-sm transform hover:scale-105 transition-transform duration-300">
+                  {template.sampleVisual}
+                </div>
 
-                  {isSelected && (
-                     <button
-                       onClick={(e) => {
-                         e.stopPropagation();
-                         alert(`Preview mode for ${template.name} is coming soon!`);
-                       }}
-                       className="absolute bottom-2 right-2 bg-paper border border-warm-gray/20 hover:border-warm-gray/40 text-ink rounded-full p-2 shadow-sm transition-all z-50 group flex items-center justify-center bg-white"
-                       title="Preview Theme"
-                     >
-                       <Eye className="w-4 h-4 text-soft-brown group-hover:text-ink group-hover:scale-110 transition-transform" />
-                     </button>
-                  )}
-               </div>
+                <div className="space-y-1">
+                  <h3
+                    className="font-extrabold text-lg sm:text-xl text-ink leading-tight"
+                    style={{ color: isSelected ? undefined : template.themeColor }}
+                  >
+                    {template.name}
+                  </h3>
+                  <p className="text-xs text-soft-brown font-medium line-clamp-2 leading-relaxed px-1">
+                    {template.tagline}
+                  </p>
+                </div>
+              </div>
+
+              {/* Action Area: Buttons on active card */}
+              <div className="pt-2">
+                {isSelected ? (
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onSelect(template.id as TemplateIdType);
+                      }}
+                      className="flex-1 py-3 px-3 rounded-2xl bg-coral hover:bg-coral/90 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-md hover:shadow-lg active:scale-95 transition-all cursor-pointer group/btn"
+                    >
+                      <span>Select & Continue</span>
+                      <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </button>
+
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(`/to/alex?d=preview`, "_blank");
+                      }}
+                      className="w-11 h-11 rounded-2xl bg-cream hover:bg-white border border-warm-gray/20 text-soft-brown hover:text-coral flex items-center justify-center shadow-xs hover:shadow-sm active:scale-95 transition-all cursor-pointer shrink-0"
+                      title="Live Preview Theme"
+                    >
+                      <Eye className="w-4 h-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="py-2 text-[11px] text-soft-brown/70 font-semibold text-center uppercase tracking-wider">
+                    Tap to preview
+                  </div>
+                )}
+              </div>
             </motion.div>
           );
         })}
       </div>
-
-      {/* Selected Template Details & Action */}
-      <motion.div
-        key={selectedTemplate.id}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mt-8 text-center max-w-2xl bg-paper p-6 rounded-2xl border border-warm-gray/20 paper-shadow-lg"
-      >
-        <h3 className="text-2xl font-bold text-ink mb-2">{selectedTemplate.name}</h3>
-        <p className="text-sm text-soft-brown mb-6">{selectedTemplate.tagline}</p>
-
-        <button
-          onClick={() => onSelect(selectedTemplate.id as TemplateIdType)}
-          className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-ink text-white rounded-xl font-bold text-sm shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all w-full sm:w-auto"
-        >
-          Select Theme & Customize <ArrowRight className="w-4 h-4" />
-        </button>
-      </motion.div>
 
     </motion.div>
   );

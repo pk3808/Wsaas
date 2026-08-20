@@ -7,7 +7,7 @@ export default function CreatePage() {
     <div className="min-h-screen bg-cream text-ink flex flex-col font-sans">
       <Navbar />
       
-      <main className="flex-1 py-8 sm:py-12 px-4 relative overflow-hidden">
+      <main className="flex-1 pt-3 sm:pt-4 pb-12 px-4 relative overflow-hidden">
         {/* Dot grid paper texture background */}
         <div className="absolute inset-0 bg-dotgrid opacity-35 pointer-events-none" />
 

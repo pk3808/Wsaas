@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   BookOpenText,
   Palette,
@@ -24,8 +24,27 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const pathname = usePathname();
+  const router = useRouter();
 
   const isHome = pathname === "/";
+
+  const handleBackClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (typeof window !== "undefined") {
+      const customEvent = new CustomEvent("wishcraft-nav-back", { cancelable: true });
+      const notPrevented = window.dispatchEvent(customEvent);
+      if (!notPrevented) {
+        // Event was intercepted by active sub-view (e.g. Birthday selector returned to Occasions)
+        return;
+      }
+    }
+    // Default fallback
+    if (window.history.length > 1) {
+      router.back();
+    } else {
+      router.push("/");
+    }
+  };
 
   const navItems = [
     {
@@ -61,13 +80,13 @@ export function Navbar() {
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Universal Back Pill on Far Left Corner */}
             {!isHome && (
-              <Link
-                href="/"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-paper hover:bg-white border border-warm-gray/20 text-soft-brown hover:text-ink text-xs font-bold transition-all shadow-2xs shrink-0"
+              <button
+                onClick={handleBackClick}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-paper hover:bg-white border border-warm-gray/20 text-soft-brown hover:text-ink text-xs font-bold transition-all shadow-2xs shrink-0 cursor-pointer"
               >
                 <ArrowLeft className="w-3.5 h-3.5 text-coral" />
                 <span>Back</span>
-              </Link>
+              </button>
             )}
 
             <Link href="/" className="flex items-center gap-2.5 group shrink-0">

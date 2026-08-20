@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import {
   TEMPLATES,
   OCCASIONS,
@@ -39,8 +40,13 @@ export function CraftModal({
   initialTemplateId = "carnival",
   initialOccasion = "birthday",
 }: CraftModalProps) {
+  const [mounted, setMounted] = useState(false);
   const [templateId, setTemplateId] = useState<TemplateIdType>(initialTemplateId);
   const [occasion, setOccasion] = useState<OccasionType>(initialOccasion);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const [formData, setFormData] = useState({
     recipientName: "",
@@ -73,7 +79,7 @@ export function CraftModal({
   }, [isOpen, initialTemplateId, initialOccasion]);
 
   const selectedTemplate = TEMPLATES.find((t) => t.id === templateId) || TEMPLATES[0];
-  const selectedOccasionObj = OCCASIONS.find((o) => o.id === occasion) || OCCASIONS[1];
+  const selectedOccasionObj = OCCASIONS.find((o) => o.id === occasion) || OCCASIONS[0];
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -130,11 +136,11 @@ export function CraftModal({
     setTimeout(() => setCopied(false), 2500);
   };
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
-  return (
+  const modalContent = (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/40 backdrop-blur-sm">
+      <div className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/60 backdrop-blur-md">
         
         {/* Backdrop click to close */}
         <motion.div
@@ -151,7 +157,7 @@ export function CraftModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.94, y: 15 }}
           transition={{ type: "spring", stiffness: 320, damping: 25 }}
-          className="relative w-full max-w-2xl bg-[#FFFDF7] rounded-3xl border-2 border-warm-gray/20 paper-shadow-lg p-5 sm:p-8 max-h-[90vh] overflow-y-auto text-ink"
+          className="relative w-full max-w-2xl bg-[#FFFDF7] rounded-3xl border-2 border-warm-gray/20 paper-shadow-lg p-5 sm:p-8 max-h-[92vh] overflow-y-auto text-ink my-auto shadow-2xl"
         >
           {/* Top Washi Tape */}
           <div className="absolute -top-3 left-10 w-20 h-4 washi-tape rounded-sm rotate-[-2deg] pointer-events-none" />
@@ -163,57 +169,6 @@ export function CraftModal({
           >
             <X className="w-4 h-4" />
           </button>
-
-          {/* ─── Perforated Keepsake Voucher Result (Moved to Top) ─── */}
-          <AnimatePresence>
-            {generatedUrl && (
-              <motion.div
-                initial={{ opacity: 0, y: -15, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -15, scale: 0.98 }}
-                className="mb-6 p-5 bg-[#FFF9F0] rounded-2xl border-2 border-dashed border-coral/40 space-y-3.5 paper-shadow-lg relative z-20"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-sage">
-                    <Check className="w-4 h-4" />
-                    <span>Keepsake Page Link Ready!</span>
-                  </div>
-                  <span className="text-[10px] font-mono font-bold bg-coral/10 text-coral px-2.5 py-0.5 rounded-full border border-coral/20">
-                    LIVE URL
-                  </span>
-                </div>
-
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                  <input
-                    type="text"
-                    readOnly
-                    value={generatedUrl}
-                    className="flex-1 bg-white border border-warm-gray/20 rounded-xl py-2 px-3 text-xs font-mono text-ink outline-none select-all shadow-inner"
-                  />
-                  <button
-                    onClick={handleCopy}
-                    className="px-4 py-2 bg-ink hover:bg-ink/90 text-cream rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shrink-0 shadow-sm active:scale-95 cursor-pointer"
-                  >
-                    {copied ? <Check className="w-3.5 h-3.5 text-sage" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copied ? "Copied!" : "Copy Link"}</span>
-                  </button>
-                </div>
-
-                <div className="flex items-center justify-between text-xs pt-2 border-t border-warm-gray/10">
-                  <span className="text-soft-brown/70 text-[11px]">Ready to send via WhatsApp, DM, or SMS</span>
-                  <a
-                    href={generatedUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-coral hover:text-coral/80 font-bold flex items-center gap-1 hover:underline"
-                  >
-                    <span>Open Live Page</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
 
           {/* Modal Header */}
           <div className="mb-6 pb-4 border-b border-dashed border-warm-gray/15 pr-10">
@@ -459,8 +414,93 @@ export function CraftModal({
             </button>
           </form>
 
+          {/* ─── Celebratory Live URL Mini Popup Box On Top ─── */}
+          <AnimatePresence>
+            {generatedUrl && (
+              <div className="fixed inset-0 z-[100000] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9, y: 15 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, y: 15 }}
+                  transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                  className="relative w-full max-w-md bg-[#FFFDF7] rounded-3xl border-2 border-warm-gray/20 paper-shadow-lg p-6 sm:p-7 space-y-4 text-ink shadow-2xl"
+                >
+                  {/* Top Washi Tape */}
+                  <div className="absolute -top-3 left-10 w-20 h-4 washi-tape rounded-sm rotate-[-2deg] pointer-events-none" />
+
+                  <button
+                    onClick={() => setGeneratedUrl("")}
+                    className="absolute top-4 right-4 w-8 h-8 rounded-full bg-cream hover:bg-white border border-warm-gray/20 flex items-center justify-center text-soft-brown hover:text-ink transition-colors cursor-pointer shadow-2xs"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+
+                  <div className="text-center space-y-1 pt-1">
+                    <div className="text-3xl select-none animate-bounce">🎉</div>
+                    <h4 className="text-2xl font-extrabold text-ink">
+                      Your Keepsake is <span className="font-[family-name:var(--font-cursive)] text-coral text-3xl font-bold">Live!</span>
+                    </h4>
+                    <p className="font-[family-name:var(--font-marker)] text-xs text-soft-brown">
+                      Copy the link below and share the joy with your loved one ✦
+                    </p>
+                  </div>
+
+                  <div className="p-4 bg-[#FFF9F0] rounded-2xl border-2 border-dashed border-coral/35 space-y-3">
+                    <div className="flex items-center justify-between text-[10px] font-bold">
+                      <span className="text-sage flex items-center gap-1">
+                        <Check className="w-3.5 h-3.5" /> Ready to Share
+                      </span>
+                      <span className="bg-coral/10 text-coral px-2 py-0.5 rounded-full font-mono border border-coral/20">
+                        LIVE URL
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        readOnly
+                        value={generatedUrl}
+                        className="flex-1 bg-white border border-warm-gray/20 rounded-xl py-2 px-3 text-xs font-mono text-ink outline-none select-all shadow-inner"
+                      />
+                      <button
+                        onClick={handleCopy}
+                        className="px-3.5 py-2 bg-ink hover:bg-ink/90 text-cream rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shrink-0 shadow-sm active:scale-95 cursor-pointer"
+                      >
+                        {copied ? <Check className="w-3.5 h-3.5 text-sage" /> : <Copy className="w-3.5 h-3.5" />}
+                        <span>{copied ? "Copied!" : "Copy"}</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 pt-1">
+                    <a
+                      href={generatedUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 py-3 rounded-xl bg-coral hover:bg-coral/90 text-cream font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all"
+                    >
+                      <span>Open Live Webpage</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                    <button
+                      onClick={() => {
+                        setGeneratedUrl("");
+                        onClose();
+                      }}
+                      className="px-4 py-3 rounded-xl bg-paper hover:bg-white border border-warm-gray/20 text-soft-brown font-bold text-xs transition-colors cursor-pointer"
+                    >
+                      Done
+                    </button>
+                  </div>
+                </motion.div>
+              </div>
+            )}
+          </AnimatePresence>
+
         </motion.div>
       </div>
     </AnimatePresence>
   );
+
+  return createPortal(modalContent, document.body);
 }
