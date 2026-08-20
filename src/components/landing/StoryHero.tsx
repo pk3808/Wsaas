@@ -147,7 +147,7 @@ export function StoryHero() {
       {/* ══════════════════════════════════════════════════════════
           HERO SECTION (SPACIOUS & BEAUTIFULLY PROPORTIONED)
           ══════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-[calc(100svh-68px)] flex flex-col justify-center items-center px-4 py-8 sm:py-14 overflow-hidden">
+      <section className="relative min-h-[calc(100svh-68px)] flex flex-col justify-center items-center px-4 py-6 sm:py-8 overflow-hidden">
         {/* Dot grid paper */}
         <div className="absolute inset-0 bg-dotgrid opacity-40 pointer-events-none" />
 
@@ -158,7 +158,7 @@ export function StoryHero() {
         {/* Notebook margin line */}
         <div className="absolute top-0 left-16 w-px h-full bg-coral/8 hidden xl:block pointer-events-none" />
 
-        <div className="container mx-auto relative z-10 max-w-4xl lg:max-w-5xl flex flex-col items-center justify-center my-auto w-full space-y-4 sm:space-y-6">
+        <div className="container mx-auto relative z-10 max-w-4xl lg:max-w-5xl flex flex-col items-center justify-center my-auto w-full space-y-4 sm:space-y-4">
           
           {/* ═══ TOP ROW: CREATIVE BADGE + YELLOW STICKY NOTE (VISIBLE ON MOBILE & DESKTOP) ═══ */}
           <div className="w-full flex flex-col items-center justify-center relative">
@@ -198,15 +198,15 @@ export function StoryHero() {
           </div>
 
           {/* ═══ STYLISH CURSIVE HEADLINE (Spacious & Airy) ═══ */}
-          <div className="text-center space-y-3.5 sm:space-y-5 max-w-4xl mx-auto w-full pt-1">
+          <div className="text-center space-y-3.5 sm:space-y-4 max-w-4xl mx-auto w-full pt-1">
             <h1 className="tracking-tight text-ink leading-[1.14]">
-              <span className="font-[family-name:var(--font-serif)] font-medium text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-soft-brown block mb-1">
+              <span className="font-[family-name:var(--font-serif)] font-medium text-2xl sm:text-4xl md:text-4xl lg:text-5xl text-soft-brown block mb-1">
                 Create a
               </span>
-              <span className="font-[family-name:var(--font-cursive)] font-bold text-coral text-5xl sm:text-7xl md:text-8xl lg:text-9xl inline-block -rotate-2 drop-shadow-xs px-2 sm:px-3 my-0.5 sm:my-1">
+              <span className="font-[family-name:var(--font-cursive)] font-bold text-coral text-5xl sm:text-7xl md:text-7xl lg:text-8xl inline-block -rotate-2 drop-shadow-xs px-2 sm:px-3 my-0.5 sm:my-1">
                 Beautiful Page
               </span>
-              <span className="font-[family-name:var(--font-serif)] font-bold italic text-ink block mt-1 text-2xl sm:text-4xl md:text-5xl lg:text-6xl">
+              <span className="font-[family-name:var(--font-serif)] font-bold italic text-ink block mt-1 text-2xl sm:text-4xl md:text-4xl lg:text-5xl">
                 to Wish Someone Special
               </span>
             </h1>
@@ -233,7 +233,7 @@ export function StoryHero() {
             </div>
 
             {/* ═══ BUTTONS: COMPACT & AUTO-WIDTH ON MOBILE, LUXURY ON DESKTOP ═══ */}
-            <div className="flex flex-row items-center justify-center gap-2.5 sm:gap-4 pt-3 sm:pt-4 flex-wrap">
+            <div className="flex flex-row items-center justify-center gap-2.5 sm:gap-4 pt-2 sm:pt-3 flex-wrap">
               <Link
                 href="/create"
                 className="w-auto inline-flex items-center justify-center px-4 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl bg-ink text-cream font-bold text-xs sm:text-sm hover:bg-ink/90 transition-all gap-1.5 sm:gap-2 active:scale-[0.97] group shadow-md"
