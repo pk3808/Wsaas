@@ -134,7 +134,7 @@ export function CraftModal({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-30 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/40 backdrop-blur-sm">
+      <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/40 backdrop-blur-sm">
         
         {/* Backdrop click to close */}
         <motion.div
