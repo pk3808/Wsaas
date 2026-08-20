@@ -78,11 +78,11 @@ body {
   background: var(--color-cream);
 }
 ::-webkit-scrollbar-thumb {
-  background: #d5cfc5;
+  background: var(--color-coral);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #b8b0a4;
+  background: var(--color-ink);
 }
 
 /* Selection */

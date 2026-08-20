@@ -134,7 +134,7 @@ export function CraftModal({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/40 backdrop-blur-sm">
+      <div className="fixed inset-0 z-30 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-black/40 backdrop-blur-sm">
         
         {/* Backdrop click to close */}
         <motion.div
@@ -163,6 +163,57 @@ export function CraftModal({
           >
             <X className="w-4 h-4" />
           </button>
+
+          {/* ─── Perforated Keepsake Voucher Result (Moved to Top) ─── */}
+          <AnimatePresence>
+            {generatedUrl && (
+              <motion.div
+                initial={{ opacity: 0, y: -15, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -15, scale: 0.98 }}
+                className="mb-6 p-5 bg-[#FFF9F0] rounded-2xl border-2 border-dashed border-coral/40 space-y-3.5 paper-shadow-lg relative z-20"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-sage">
+                    <Check className="w-4 h-4" />
+                    <span>Keepsake Page Link Ready!</span>
+                  </div>
+                  <span className="text-[10px] font-mono font-bold bg-coral/10 text-coral px-2.5 py-0.5 rounded-full border border-coral/20">
+                    LIVE URL
+                  </span>
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                  <input
+                    type="text"
+                    readOnly
+                    value={generatedUrl}
+                    className="flex-1 bg-white border border-warm-gray/20 rounded-xl py-2 px-3 text-xs font-mono text-ink outline-none select-all shadow-inner"
+                  />
+                  <button
+                    onClick={handleCopy}
+                    className="px-4 py-2 bg-ink hover:bg-ink/90 text-cream rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shrink-0 shadow-sm active:scale-95 cursor-pointer"
+                  >
+                    {copied ? <Check className="w-3.5 h-3.5 text-sage" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copied ? "Copied!" : "Copy Link"}</span>
+                  </button>
+                </div>
+
+                <div className="flex items-center justify-between text-xs pt-2 border-t border-warm-gray/10">
+                  <span className="text-soft-brown/70 text-[11px]">Ready to send via WhatsApp, DM, or SMS</span>
+                  <a
+                    href={generatedUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-coral hover:text-coral/80 font-bold flex items-center gap-1 hover:underline"
+                  >
+                    <span>Open Live Page</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Modal Header */}
           <div className="mb-6 pb-4 border-b border-dashed border-warm-gray/15 pr-10">
@@ -408,55 +459,6 @@ export function CraftModal({
             </button>
           </form>
 
-          {/* ─── Perforated Keepsake Voucher Result ─── */}
-          <AnimatePresence>
-            {generatedUrl && (
-              <motion.div
-                initial={{ opacity: 0, y: 15, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                className="mt-6 p-5 bg-[#FFF9F0] rounded-2xl border-2 border-dashed border-coral/40 space-y-3.5 paper-shadow relative"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-sage">
-                    <Check className="w-4 h-4" />
-                    <span>Keepsake Page Link Ready!</span>
-                  </div>
-                  <span className="text-[10px] font-mono font-bold bg-coral/10 text-coral px-2.5 py-0.5 rounded-full border border-coral/20">
-                    LIVE URL
-                  </span>
-                </div>
-
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                  <input
-                    type="text"
-                    readOnly
-                    value={generatedUrl}
-                    className="flex-1 bg-white border border-warm-gray/20 rounded-xl py-2 px-3 text-xs font-mono text-ink outline-none select-all shadow-inner"
-                  />
-                  <button
-                    onClick={handleCopy}
-                    className="px-4 py-2 bg-ink hover:bg-ink/90 text-cream rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shrink-0 shadow-sm active:scale-95 cursor-pointer"
-                  >
-                    {copied ? <Check className="w-3.5 h-3.5 text-sage" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copied ? "Copied!" : "Copy Link"}</span>
-                  </button>
-                </div>
-
-                <div className="flex items-center justify-between text-xs pt-2 border-t border-warm-gray/10">
-                  <span className="text-soft-brown/70 text-[11px]">Ready to send via WhatsApp, DM, or SMS</span>
-                  <a
-                    href={generatedUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-coral hover:text-coral/80 font-bold flex items-center gap-1 hover:underline"
-                  >
-                    <span>Open Live Page</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </motion.div>
       </div>
     </AnimatePresence>
