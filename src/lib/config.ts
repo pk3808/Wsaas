@@ -169,6 +169,13 @@ export interface WishData {
   giftBoxSurprise?: string;
   gratitudeReason?: string;
   memoryTags?: string;
+
+  // Celebration Carnival Dynamic Fields (JSON stringified arrays)
+  carnivalWishes?: string;
+  carnivalHiddenMessages?: string;
+  carnivalMemories?: string;
+  carnivalFortunes?: string;
+  carnivalGuestMessages?: string;
 }
 
 export interface VisitorComment {

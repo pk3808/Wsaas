@@ -2,19 +2,13 @@
 > temp-app@0.1.0 dev
 > next dev
 
-⚠ Port 3000 is in use by an unknown process, using available port 3001 instead.
 ▲ Next.js 16.3.1 (Turbopack)
-- Local:         http://localhost:3001
-- Network:       http://192.168.0.2:3001
-✓ Ready in 1458ms
-✓ Running next.config.ts took 318ms
-⨯ Another next dev server is already running.
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+✓ Ready in 583ms
+✓ Running next.config.ts took 49ms
 
-- Local:        http://localhost:3000
-- PID:          5468
-- Dir:          /app
-- Log:          .next/dev/logs/next-development.log
-
-You can access the existing server at http://localhost:3000,
-or run kill 5468 to stop it and start a new one.
-[?25h
+○ Compiling /to/[slug] ...
+ GET /to/Piyush?template=carnival 200 in 5.4s (next.js: 5.0s, application-code: 415ms)
+ GET /to/Piyush?data=eyJyZWNpcGllbnROYW1lIjoiUGl5dXNoIiwic2VuZGVyTmFtZSI6Ikp1bGVzIiwib2NjYXNpb24iOiJiaXJ0aGRheSIsInRlbXBsYXRlSWQiOiJjYXJuaXZhbCIsIm1lc3NhZ2UiOiJIYXBweSBCaXJ0aGRheSEiLCJhZ2UiOiIyNSJ9 200 in 104ms (next.js: 27ms, application-code: 77ms)
+ GET /to/Piyush?data=eyJyZWNpcGllbnROYW1lIjoiUGl5dXNoIiwic2VuZGVyTmFtZSI6Ikp1bGVzIiwib2NjYXNpb24iOiJiaXJ0aGRheSIsInRlbXBsYXRlSWQiOiJjYXJuaXZhbCIsIm1lc3NhZ2UiOiJIYXBweSBCaXJ0aGRheSEiLCJhZ2UiOiIyNSJ9 200 in 84ms (next.js: 18ms, application-code: 66ms)
