@@ -181,6 +181,12 @@ export interface WishData {
   arcadeMemories?: string;
   arcadePowerups?: string;
   arcadeSecrets?: string;
+
+  // Starry Night Dynamic Fields (JSON stringified arrays)
+  starryWishes?: string;
+  starryMemories?: string;
+  starryLetters?: string;
+  starrySecrets?: string;
 }
 
 export interface VisitorComment {
