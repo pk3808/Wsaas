@@ -187,6 +187,12 @@ export interface WishData {
   starryMemories?: string;
   starryLetters?: string;
   starrySecrets?: string;
+
+  // Neon Nightclub Dynamic Fields (JSON stringified arrays)
+  neonMemories?: string;
+  neonWishes?: string;
+  neonSigns?: string;
+  neonVIPMessage?: string;
 }
 
 export interface VisitorComment {
