@@ -176,6 +176,11 @@ export interface WishData {
   carnivalMemories?: string;
   carnivalFortunes?: string;
   carnivalGuestMessages?: string;
+
+  // Retro Arcade Dynamic Fields (JSON stringified arrays)
+  arcadeMemories?: string;
+  arcadePowerups?: string;
+  arcadeSecrets?: string;
 }
 
 export interface VisitorComment {

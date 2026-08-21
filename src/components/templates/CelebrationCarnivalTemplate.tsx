@@ -117,7 +117,7 @@ const FloatingBalloon = ({ id, msg, delay, colorClass, isPopped, onPop, shouldRe
           onPop(id, rect);
         }}
       >
-        <div className={`w-16 h-20 rounded-[50%] ${colorClass} shadow-[inset_-5px_-5px_15px_rgba(0,0,0,0.2)] relative flex items-center justify-center after:content-[''] after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-2 after:h-2 after:bg-current after:[clip-path:polygon-[50%_0,0_100%,100%_100%]]`} />
+        <div className={`w-16 h-20 rounded-[50%] ${colorClass} shadow-[inset_-5px_-5px_15px_rgba(0,0,0,0.2)] relative flex items-center justify-center after:content-[''] after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-2 after:h-2 after:bg-current after:[clip-path:polygon(50%_0,0_100%,100%_100%)`} />
         <div className="w-0.5 h-24 bg-white/30 mx-auto -mt-1 origin-top" />
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
           <span className="text-white text-xs font-bold drop-shadow-md bg-black/30 px-2 py-1 rounded-full backdrop-blur-sm">POP!</span>
