@@ -193,6 +193,12 @@ export interface WishData {
   neonWishes?: string;
   neonSigns?: string;
   neonVIPMessage?: string;
+
+  // Vintage Scrapbook Dynamic Fields (JSON stringified arrays)
+  scrapbookMemories?: string;
+  scrapbookNotes?: string;
+  scrapbookBucketList?: string;
+  scrapbookEnvelopes?: string;
 }
 
 export interface VisitorComment {
