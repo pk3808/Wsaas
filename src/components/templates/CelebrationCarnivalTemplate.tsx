@@ -137,7 +137,10 @@ export function CelebrationCarnivalTemplate({ data, slug }: TemplateProps) {
   const wishes = safeParse(data.carnivalWishes, ["More adventures", "More laughter", "More unforgettable moments"]);
   const fortunes = safeParse(data.carnivalFortunes, ["find more reasons to laugh", "make a memory you'll talk about for years", "have your best year yet"]);
   const memories = safeParse(data.carnivalMemories, [{ text: "That time we laughed until it hurt." }, { text: "Our favorite adventure together." }]);
-  const guestMessages = safeParse(data.carnivalGuestMessages, [{ sender: "Someone who loves you", message: "Never forget how many people are rooting for you.", relationship: "Friend" }]);
+  const defaultGuestMessages = data.relationship === "partner"
+    ? [{ sender: "Someone who loves you", message: "Never forget how much you mean to me.", relationship: "Partner" }]
+    : [{ sender: "Someone cheering for you", message: "Never forget how many people are rooting for you.", relationship: "Friend" }];
+  const guestMessages = safeParse(data.carnivalGuestMessages, defaultGuestMessages);
 
   // Party state
   const [candlesBlown, setCandlesBlown] = useState(false);

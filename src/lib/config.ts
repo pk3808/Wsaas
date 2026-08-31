@@ -148,6 +148,7 @@ export const OCCASIONS = [
 export type OccasionType = "birthday" | "anniversary" | "success" | "festive" | "gratitude";
 export type FilterOccasionType = typeof OCCASIONS[number]["id"];
 export type TemplateIdType = typeof TEMPLATES[number]["id"];
+export type RelationshipType = "friend" | "partner" | "family" | "colleague";
 
 export interface WishData {
   recipientName: string;
@@ -157,6 +158,7 @@ export interface WishData {
   message: string;
 
   // Occasion dynamic fields
+  relationship?: RelationshipType;
   age?: string;
   nickname?: string;
   candleText?: string;

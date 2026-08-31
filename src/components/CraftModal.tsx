@@ -52,6 +52,7 @@ export function CraftModal({
     recipientName: "",
     senderName: "",
     message: "",
+    relationship: "friend",
     age: "",
     nickname: "",
     anniversaryDate: "",
@@ -82,7 +83,7 @@ export function CraftModal({
   const selectedOccasionObj = OCCASIONS.find((o) => o.id === occasion) || OCCASIONS[0];
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -101,6 +102,7 @@ export function CraftModal({
       occasion,
       templateId,
       message: formData.message.trim(),
+      ...(occasion === "birthday" && { relationship: formData.relationship as any }),
       ...(formData.age && { age: formData.age }),
       ...(formData.nickname && { nickname: formData.nickname }),
       ...(formData.anniversaryDate && { anniversaryDate: formData.anniversaryDate }),
@@ -228,6 +230,22 @@ export function CraftModal({
             {/* Dynamic Occasion-Specific Inputs */}
             {occasion === "birthday" && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-cream/70 border border-warm-gray/15">
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-soft-brown">
+                    Relationship *
+                  </label>
+                  <select
+                    name="relationship"
+                    value={formData.relationship}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 rounded-xl bg-paper border border-warm-gray/20 text-sm text-ink outline-none focus:border-coral cursor-pointer"
+                  >
+                    <option value="friend">Friend / Colleague</option>
+                    <option value="partner">Romantic Partner</option>
+                    <option value="family">Family Member</option>
+                    <option value="colleague">Coworker / Boss</option>
+                  </select>
+                </div>
                 <div className="space-y-1.5">
                   <label className="block text-xs font-bold uppercase tracking-wider text-soft-brown">
                     Turning Age (Optional)

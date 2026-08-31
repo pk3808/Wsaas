@@ -133,7 +133,9 @@ export const ARCADE_KEYFRAMES = `
 `;
 
 // Default fallback data for when user doesn't provide custom values
-export const ARCADE_DEFAULTS = {
+import { RelationshipType } from "@/lib/config";
+
+export const getArcadeDefaults = (relationship?: RelationshipType) => ({
   memories: [
     { title: "First Quest", date: "Level 1", text: "Remember when we couldn't stop laughing? That was the beginning of the adventure." },
     { title: "Co-op Mode", date: "Level 2", text: "Best player 2 I could ask for. We make the perfect team." },
@@ -141,7 +143,13 @@ export const ARCADE_DEFAULTS = {
     { title: "Boss Fight", date: "Level 4", text: "When things got tough, you never quit. That's what heroes do." },
   ],
   powerups: [
-    { type: "heart", name: "More Love", wish: "May you feel loved every single day of this new level." },
+    {
+      type: "heart",
+      name: relationship === "partner" ? "More Love" : "More Joy",
+      wish: relationship === "partner"
+        ? "May you feel loved every single day of this new level."
+        : "May you find joy every single day of this new level."
+    },
     { type: "star", name: "Star Power", wish: "May this year bring the most amazing moments of your life." },
     { type: "zap", name: "Speed Boost", wish: "For all the exciting new adventures waiting around the corner." },
     { type: "shield", name: "Shield Up", wish: "May nothing ever dim your light or slow you down." },
@@ -149,4 +157,6 @@ export const ARCADE_DEFAULTS = {
   secrets: [
     "SECRET AREA FOUND! You mean more to me than any high score ever could. 💛",
   ],
-};
+});
+
+export const ARCADE_DEFAULTS = getArcadeDefaults("friend");

@@ -49,13 +49,21 @@ export function VintageScrapbook({ data }: TemplateProps) {
     { year: "2024", caption: "That ridiculous photo", text: "You probably weren't supposed to find this one." }
   ]);
 
-  const notes = parseData(data.scrapbookNotes, [
+  const defaultNotes = data.relationship === "partner" ? [
     "Your laugh.",
     "Your patience.",
     "The way you make people comfortable.",
     "Your ridiculous sense of humor.",
     "Your smile."
-  ]);
+  ] : [
+    "Your great advice.",
+    "Your loyalty.",
+    "The way you make people comfortable.",
+    "Your ridiculous sense of humor.",
+    "Your positivity."
+  ];
+
+  const notes = parseData(data.scrapbookNotes, defaultNotes);
 
   const bucketList = parseData(data.scrapbookBucketList, [
     "Go somewhere we've never been.",
@@ -264,7 +272,9 @@ export function VintageScrapbook({ data }: TemplateProps) {
                    {/* P.3: THINGS I LOVE (Scraps) */}
                    {currentPage === 2 && (
                      <div className="min-h-full relative py-8">
-                       <h2 className="font-handwriting text-5xl text-center mb-16 text-[#8B5A2B]">Things I love about you</h2>
+                       <h2 className="font-handwriting text-5xl text-center mb-16 text-[#8B5A2B]">
+                         {data.relationship === "partner" ? "Things I love about you" : "Things I appreciate about you"}
+                       </h2>
 
                        <div className="flex flex-wrap justify-center gap-6 md:gap-10">
                          {notes.map((note: string, i: number) => {

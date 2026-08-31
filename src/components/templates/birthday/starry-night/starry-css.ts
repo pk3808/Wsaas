@@ -123,7 +123,9 @@ export const STARRY_KEYFRAMES = `
 `;
 
 // Default data fallbacks
-export const STARRY_DEFAULTS = {
+import { RelationshipType } from "@/lib/config";
+
+export const getStarryDefaults = (relationship?: RelationshipType) => ({
   wishes: [
     "May every star in tonight's sky carry a wish just for you.",
     "May you always find your way back to the things that make you feel alive.",
@@ -135,11 +137,15 @@ export const STARRY_DEFAULTS = {
     { title: "A Thousand Quiet Words", text: "We didn't need to say much. We already knew." },
   ],
   letters: [
-    "If I could bottle one feeling and give it to you, it would be the way the night sky makes everything feel both infinite and intimate at the same time. That's what you are to me. Happy Birthday.",
+    relationship === "partner"
+      ? "If I could bottle one feeling and give it to you, it would be the way the night sky makes everything feel both infinite and intimate at the same time. That's what you are to me. Happy Birthday."
+      : "If I could bottle one feeling and give it to you, it would be the way the night sky makes everything feel infinite and inspiring. You are a true star. Happy Birthday.",
   ],
   secrets: [
     "You radiate more light than you realize.",
     "The universe conspired to make you exactly as you are.",
     "The best chapters of your story are still unwritten.",
   ],
-};
+});
+
+export const STARRY_DEFAULTS = getStarryDefaults("friend");

@@ -81,7 +81,10 @@ export function NeonNightclub({ data }: TemplateProps) {
     "MORE MEMORIES.",
     "MORE LIFE."
   ]);
-  const vipMessage = data.neonVIPMessage || "Okay. This part isn't for everyone. It's just for you. Thank you for being such an incredible part of my life.";
+  const defaultVipMessage = data.relationship === "partner"
+    ? "Okay. This part isn't for everyone. It's just for you. Thank you for being my everything."
+    : "Okay. This part isn't for everyone. It's just for you. Thank you for being such an incredible part of my life.";
+  const vipMessage = data.neonVIPMessage || defaultVipMessage;
 
   // Particle bursts
 
