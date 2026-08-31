@@ -1,5 +1,5 @@
 export interface TemplateConfig {
-  id: "carnival" | "romance" | "triumph" | "festive" | "warmheart" | "vintage-scrapbook" | "neon-nightclub" | "starry-night" | "retro-arcade" | "floral-garden";
+  id: "carnival" | "romance" | "triumph" | "festive" | "warmheart" | "vintage-scrapbook" | "neon-nightclub" | "starry-night" | "retro-arcade" | "floral-garden" | "golden-thread" | "midnight-bokeh" | "wax-seal" | "floating-lanterns" | "vintage-filmstrip" | "celestial-lovers";
   name: string;
   tagline: string;
   defaultOccasion: OccasionType;
@@ -12,6 +12,79 @@ export interface TemplateConfig {
 }
 
 export const TEMPLATES: TemplateConfig[] = [
+  // ─── NEW ROMANCE & ANNIVERSARY TEMPLATES ───
+  {
+    id: "golden-thread",
+    name: "The Golden Thread",
+    tagline: "Elegant ivory parchment with an animated tracing golden thread.",
+    defaultOccasion: "anniversary",
+    badgeText: "Artistic & Meaningful 🧵",
+    themeColor: "#B8860B", // Dark Goldenrod
+    accentColor: "#FDF5E6", // Old Lace
+    bgTone: "bg-[#FDF5E6] border-[#B8860B]/20 text-[#B8860B]",
+    features: ["Animated Thread", "Polaroid Drops", "Calligraphy Typography"],
+    sampleVisual: "🧵",
+  },
+  {
+    id: "midnight-bokeh",
+    name: "Midnight Bokeh",
+    tagline: "Sophisticated deep navy night with softly drifting glowing orbs.",
+    defaultOccasion: "anniversary",
+    badgeText: "Cinematic & Sophisticated 🌃",
+    themeColor: "#FFD700", // Gold
+    accentColor: "#0B1021", // Deep Navy
+    bgTone: "bg-[#0B1021] border-[#FFD700]/20 text-[#FFD700]",
+    features: ["Canvas Bokeh Engine", "Glow Effects", "Elegant Serif Fonts"],
+    sampleVisual: "🌃",
+  },
+  {
+    id: "wax-seal",
+    name: "The Wax Seal Letter",
+    tagline: "Intimate velvet romance with an interactive unfolding envelope.",
+    defaultOccasion: "anniversary",
+    badgeText: "Intimate & Classic 💌",
+    themeColor: "#800020", // Burgundy
+    accentColor: "#FFF8DC", // Cornsilk
+    bgTone: "bg-[#800020] border-[#FFF8DC]/20 text-[#FFF8DC]",
+    features: ["Interactive Wax Seal", "Letter Unfolding", "Velvet Textures"],
+    sampleVisual: "💌",
+  },
+  {
+    id: "floating-lanterns",
+    name: "Floating Lanterns",
+    tagline: "Dreamy twilight sky with warmly glowing interactive lanterns.",
+    defaultOccasion: "anniversary",
+    badgeText: "Dreamy & Warm 🏮",
+    themeColor: "#FF8C00", // Dark Orange
+    accentColor: "#483D8B", // Dark Slate Blue
+    bgTone: "bg-gradient-to-t from-[#FF8C00]/20 to-[#483D8B]/80 border-[#FF8C00]/20 text-white",
+    features: ["CSS/Canvas Lanterns", "Sparkle Confetti", "Twilight Gradient"],
+    sampleVisual: "🏮",
+  },
+  {
+    id: "vintage-filmstrip",
+    name: "Vintage Filmstrip",
+    tagline: "Nostalgic Hollywood romance sliding cinematic memories.",
+    defaultOccasion: "anniversary",
+    badgeText: "Classic & Nostalgic 🎞️",
+    themeColor: "#8B4513", // Saddle Brown
+    accentColor: "#F5DEB3", // Wheat
+    bgTone: "bg-[#F5DEB3] border-[#8B4513]/20 text-[#8B4513]",
+    features: ["Sliding Carousel", "Sepia Tones", "Countdown Animation"],
+    sampleVisual: "🎞️",
+  },
+  {
+    id: "celestial-lovers",
+    name: "Celestial Lovers",
+    tagline: "Cosmic interactive space where stars trace your love story.",
+    defaultOccasion: "anniversary",
+    badgeText: "Cosmic & Ethereal ✨",
+    themeColor: "#E0FFFF", // Light Cyan
+    accentColor: "#000000", // Black
+    bgTone: "bg-black border-[#E0FFFF]/20 text-[#E0FFFF]",
+    features: ["Interactive Star Map", "Constellation Lines", "Ethereal Glow"],
+    sampleVisual: "✨",
+  },
   // ─── NEW BIRTHDAY TEMPLATES ───
   {
     id: "vintage-scrapbook",
@@ -201,6 +274,30 @@ export interface WishData {
   scrapbookNotes?: string;
   scrapbookBucketList?: string;
   scrapbookEnvelopes?: string;
+
+  // Golden Thread Dynamic Fields (JSON stringified arrays)
+  goldenThreadMemories?: string;
+  goldenThreadNotes?: string;
+
+  // Midnight Bokeh Dynamic Fields (JSON stringified arrays)
+  bokehReasons?: string;
+  bokehWishes?: string;
+
+  // Wax Seal Letter Dynamic Fields (JSON stringified arrays)
+  waxSealLetterContent?: string;
+  waxSealPS?: string;
+
+  // Floating Lanterns Dynamic Fields (JSON stringified arrays)
+  lanternWishes?: string;
+  lanternMemories?: string;
+
+  // Vintage Filmstrip Dynamic Fields (JSON stringified arrays)
+  filmstripFrames?: string;
+  filmstripQuotes?: string;
+
+  // Celestial Lovers Dynamic Fields (JSON stringified arrays)
+  celestialConstellations?: string;
+  celestialMessages?: string;
 }
 
 export interface VisitorComment {

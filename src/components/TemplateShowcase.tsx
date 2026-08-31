@@ -42,6 +42,12 @@ export function TemplateShowcase() {
     "starry-night": { bg: "bg-blue-950", border: "border-blue-500/50", emoji: "🌟", headline: "Happy Birthday, Lily!", sub: "Gold twinkling stars • Midnight blue • Elegant fonts", doodleColor: "text-amber-200/30" },
     "retro-arcade": { bg: "bg-zinc-950", border: "border-green-500/50", emoji: "👾", headline: "Happy Birthday, Max!", sub: "8-bit pixels • High scores • Arcade vibes", doodleColor: "text-green-500/30" },
     "floral-garden": { bg: "bg-emerald-50", border: "border-emerald-200", emoji: "🌸", headline: "Happy Birthday, Chloe!", sub: "Soft blossoms • Swaying leaves • Botanical frames", doodleColor: "text-emerald-400/30" },
+    "golden-thread": { bg: "bg-amber-100", border: "border-amber-600/50", emoji: "🧵", headline: "Happy Anniversary, My Love!", sub: "Elegant ivory • Animated gold thread • Calligraphy", doodleColor: "text-amber-600/30" },
+    "midnight-bokeh": { bg: "bg-blue-950", border: "border-yellow-400/50", emoji: "🌃", headline: "Happy Anniversary, Sarah!", sub: "Deep navy • Drifting glowing orbs • Serif elegance", doodleColor: "text-yellow-400/30" },
+    "wax-seal": { bg: "bg-rose-950", border: "border-amber-100/30", emoji: "💌", headline: "Happy Anniversary, James!", sub: "Rich velvet • Interactive wax seal break • Unfolding letter", doodleColor: "text-amber-100/30" },
+    "floating-lanterns": { bg: "bg-orange-950", border: "border-orange-400/50", emoji: "🏮", headline: "Happy Anniversary, Maya!", sub: "Twilight sky • Interactive glowing lanterns • Magic sparks", doodleColor: "text-orange-400/30" },
+    "vintage-filmstrip": { bg: "bg-amber-900", border: "border-amber-200/50", emoji: "🎞️", headline: "Happy Anniversary, Chris!", sub: "Sepia tones • Sliding filmstrip memories • Classic countdown", doodleColor: "text-amber-200/30" },
+    "celestial-lovers": { bg: "bg-slate-950", border: "border-cyan-200/50", emoji: "✨", headline: "Happy Anniversary, Ava!", sub: "Cosmic space • Constellation drawing • Star maps", doodleColor: "text-cyan-200/30" },
   };
 
   const currentPreview = previewCards[activeTemplate];

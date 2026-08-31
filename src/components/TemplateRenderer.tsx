@@ -11,6 +11,12 @@ import { NeonNightclub } from "@/components/templates/birthday/NeonNightclub";
 import { StarryNight } from "@/components/templates/birthday/StarryNight";
 import { RetroArcade } from "@/components/templates/birthday/RetroArcade";
 import { FloralGarden } from "@/components/templates/birthday/FloralGarden";
+import { GoldenThread } from "@/components/templates/anniversary/GoldenThread";
+import { MidnightBokeh } from "@/components/templates/anniversary/MidnightBokeh";
+import { WaxSealLetter } from "@/components/templates/anniversary/WaxSealLetter";
+import { FloatingLanterns } from "@/components/templates/anniversary/FloatingLanterns";
+import { VintageFilmstrip } from "@/components/templates/anniversary/VintageFilmstrip";
+import { CelestialLovers } from "@/components/templates/anniversary/CelestialLovers";
 
 import { VisitorComments } from "@/components/VisitorComments";
 
@@ -39,6 +45,18 @@ export function TemplateRenderer({ data, slug }: TemplateRendererProps) {
         return <RetroArcade data={data} slug={slug} />;
       case "floral-garden":
         return <FloralGarden data={data} slug={slug} />;
+      case "golden-thread":
+        return <GoldenThread data={data} slug={slug} />;
+      case "midnight-bokeh":
+        return <MidnightBokeh data={data} slug={slug} />;
+      case "wax-seal":
+        return <WaxSealLetter data={data} slug={slug} />;
+      case "floating-lanterns":
+        return <FloatingLanterns data={data} slug={slug} />;
+      case "vintage-filmstrip":
+        return <VintageFilmstrip data={data} slug={slug} />;
+      case "celestial-lovers":
+        return <CelestialLovers data={data} slug={slug} />;
       case "romance":
         return <EternalRomanceTemplate data={data} slug={slug} />;
       case "triumph":
