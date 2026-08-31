@@ -75,6 +75,7 @@ export function FloralGarden({ data, slug }: { data: WishData; slug: string }) {
               senderName={data.senderName}
               message={data.message}
               age={data.age}
+              relationship={data.relationship}
             />
 
             {/* Section 2: Interactive Flower Messages */}

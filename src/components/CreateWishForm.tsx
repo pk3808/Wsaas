@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { OCCASIONS, TEMPLATES, type WishData, type OccasionType, type TemplateIdType } from "@/lib/config";
+import { OCCASIONS, TEMPLATES, type WishData, type OccasionType, type TemplateIdType, type RelationshipType } from "@/lib/config";
 import { encodeData } from "@/lib/utils";
 import { Sparkles, Copy, Check, ArrowRight, ExternalLink, Wand2, Heart, Gift, Camera, Star, Edit3, Send } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -28,6 +28,7 @@ export function CreateWishForm() {
     recipientName: string;
     senderName: string;
     message: string;
+    relationship: RelationshipType;
     age: string;
     nickname: string;
     anniversaryDate: string;
@@ -43,6 +44,7 @@ export function CreateWishForm() {
     recipientName: "",
     senderName: "",
     message: "",
+    relationship: "friend",
     age: "",
     nickname: "",
     anniversaryDate: "",
@@ -67,7 +69,7 @@ export function CreateWishForm() {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -85,6 +87,7 @@ export function CreateWishForm() {
       occasion,
       templateId,
       message: formData.message,
+      ...(occasion === "birthday" && { relationship: formData.relationship }),
       ...(formData.age && { age: formData.age }),
       ...(formData.nickname && { nickname: formData.nickname }),
       ...(formData.anniversaryDate && { anniversaryDate: formData.anniversaryDate }),
@@ -285,6 +288,20 @@ export function CreateWishForm() {
                 exit={{ opacity: 0, y: -8 }}
                 className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 rounded-2xl bg-cream/70 border border-warm-gray/15"
               >
+                <div className="space-y-2">
+                  <label className="block text-xs font-bold uppercase text-soft-brown">Relationship *</label>
+                  <select
+                    name="relationship"
+                    value={formData.relationship}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2.5 rounded-xl bg-paper border border-warm-gray/20 text-sm text-ink outline-none focus:border-coral cursor-pointer"
+                  >
+                    <option value="friend">Friend / Colleague</option>
+                    <option value="partner">Romantic Partner</option>
+                    <option value="family">Family Member</option>
+                    <option value="colleague">Coworker / Boss</option>
+                  </select>
+                </div>
                 <div className="space-y-2">
                   <label className="block text-xs font-bold uppercase text-soft-brown">Turning Age (Optional)</label>
                   <input

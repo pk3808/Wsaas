@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import { type WishData } from "@/lib/config";
-import { ARCADE_KEYFRAMES, ARCADE_DEFAULTS } from "./retro-arcade/arcade-css";
+import { ARCADE_KEYFRAMES, getArcadeDefaults } from "./retro-arcade/arcade-css";
 import { useChiptuneEngine } from "./retro-arcade/ChiptuneEngine";
 import NeonGrid from "./retro-arcade/NeonGrid";
 import ArcadeHUD from "./retro-arcade/ArcadeHUD";
@@ -72,8 +72,9 @@ export function RetroArcade({ data }: TemplateProps) {
   );
 
   // ── Data ──
-  const memories = safeParse(data.arcadeMemories, ARCADE_DEFAULTS.memories);
-  const powerups = safeParse(data.arcadePowerups, ARCADE_DEFAULTS.powerups);
+  const defaults = getArcadeDefaults(data.relationship);
+  const memories = safeParse(data.arcadeMemories, defaults.memories);
+  const powerups = safeParse(data.arcadePowerups, defaults.powerups);
 
   // ── Level label for HUD ──
   const levelLabel =

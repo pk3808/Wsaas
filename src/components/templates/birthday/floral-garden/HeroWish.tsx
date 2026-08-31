@@ -5,12 +5,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { GARDEN_COLORS } from "./garden-css";
 import confetti from "canvas-confetti";
 import { Sparkles, ChevronDown } from "lucide-react";
+import { RelationshipType } from "@/lib/config";
 
 interface HeroWishProps {
   recipientName: string;
   senderName: string;
   message: string;
   age?: string;
+  relationship?: RelationshipType;
 }
 
 // Glowing Forest Spirit Angel with fluttering wings and halo
@@ -92,7 +94,7 @@ function ForestSpiritAngel({ isLeft = true }: { isLeft?: boolean }) {
   );
 }
 
-export function HeroWish({ recipientName, senderName, message, age }: HeroWishProps) {
+export function HeroWish({ recipientName, senderName, message, age, relationship }: HeroWishProps) {
   const [isBlown, setIsBlown] = useState(false);
   const [wishMade, setWishMade] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -243,7 +245,7 @@ export function HeroWish({ recipientName, senderName, message, age }: HeroWishPr
         {/* Sender signature inside letter */}
         <div className="mt-4 pt-3 border-t border-dashed border-warm-gray/15">
           <p className="text-[10px] uppercase tracking-[0.25em] mb-0.5" style={{ color: `${GARDEN_COLORS.sage}` }}>
-            With love,
+            {relationship === "colleague" ? "Warmly," : relationship === "friend" ? "Best wishes," : "With love,"}
           </p>
           <p className="text-xl sm:text-2xl" style={{ fontFamily: "var(--font-cursive)", color: GARDEN_COLORS.naturalGreen }}>
             {senderName}

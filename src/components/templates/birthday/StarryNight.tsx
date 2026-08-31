@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import { type WishData } from "@/lib/config";
-import { STARRY_KEYFRAMES, STARRY_DEFAULTS, STARRY_COLORS } from "./starry-night/starry-css";
+import { STARRY_KEYFRAMES, getStarryDefaults, STARRY_COLORS } from "./starry-night/starry-css";
 import { useCelestialAudio } from "./starry-night/CelestialAudio";
 import StargazeCanvas from "./starry-night/StargazeCanvas";
 import AuroraSky from "./starry-night/AuroraSky";
@@ -57,10 +57,11 @@ export function StarryNight({ data }: TemplateProps) {
   }, []);
 
   // Safe parsed WishData or defaults
-  const wishes = safeParse(data.starryWishes, STARRY_DEFAULTS.wishes);
-  const memories = safeParse(data.starryMemories, STARRY_DEFAULTS.memories);
-  const letters = safeParse(data.starryLetters, STARRY_DEFAULTS.letters);
-  const secrets = safeParse(data.starrySecrets, STARRY_DEFAULTS.secrets);
+  const defaults = getStarryDefaults(data.relationship);
+  const wishes = safeParse(data.starryWishes, defaults.wishes);
+  const memories = safeParse(data.starryMemories, defaults.memories);
+  const letters = safeParse(data.starryLetters, defaults.letters);
+  const secrets = safeParse(data.starrySecrets, defaults.secrets);
 
   const handleEnter = useCallback(() => {
     setEntered(true);
