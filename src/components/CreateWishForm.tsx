@@ -63,9 +63,15 @@ export function CreateWishForm() {
 
   const handleOccasionChange = (occId: OccasionType) => {
     setOccasion(occId);
-    const occ = OCCASIONS.find((o) => o.id === occId);
-    if (occ && occ.defaultTemplate) {
-      setTemplateId(occ.defaultTemplate as TemplateIdType);
+    // Find the first template that has this occasion as its default
+    const availableTemplatesForOccasion = TEMPLATES.filter(t => t.defaultOccasion === occId);
+    if (availableTemplatesForOccasion.length > 0) {
+      setTemplateId(availableTemplatesForOccasion[0].id);
+    } else {
+      const occ = OCCASIONS.find((o) => o.id === occId);
+      if (occ && occ.defaultTemplate) {
+        setTemplateId(occ.defaultTemplate as TemplateIdType);
+      }
     }
   };
 
@@ -209,7 +215,7 @@ export function CreateWishForm() {
           </label>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
-            {TEMPLATES.map((tmpl) => {
+            {TEMPLATES.filter((tmpl) => tmpl.defaultOccasion === occasion).map((tmpl) => {
               const isSelected = templateId === tmpl.id;
               return (
                 <button
